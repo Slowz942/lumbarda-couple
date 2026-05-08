@@ -116,7 +116,7 @@ h1,h2,h3,h4{font-family:var(--font-display);font-weight:400;line-height:1.3;font
   padding:14px 0;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)
 }
 .navbar .container{display:flex;align-items:center;justify-content:space-between}
-.nav-logo{display:flex;align-items:center;justify-content:center;width:70px;height:70px;background:#fff;-webkit-mask:url('images/logo.svg') center/contain no-repeat;mask:url('images/logo.svg') center/contain no-repeat;transition:background .4s ease,width .4s ease,height .4s ease,transform .3s ease}
+.nav-logo{display:flex;align-items:center;justify-content:center;width:70px;height:70px;background:#fff;-webkit-mask:url('images/logo-nav.svg') center/contain no-repeat;mask:url('images/logo-nav.svg') center/contain no-repeat;transition:background .4s ease,width .4s ease,height .4s ease,transform .3s ease}
 .nav-logo img{display:none}
 .navbar.scrolled .nav-logo{width:60px;height:60px;background:var(--gold)}
 .nav-logo:hover{background:var(--gold);transform:scale(1.04)}
@@ -274,7 +274,7 @@ h1,h2,h3,h4{font-family:var(--font-display);font-weight:400;line-height:1.3;font
 .brandmark{display:flex;flex-direction:column;align-items:center;gap:14px;margin:8px 0 4px}
 .brandmark-row{display:flex;align-items:center;justify-content:center;gap:28px}
 .brandmark-text{font-family:var(--font-display);font-size:1.2rem;font-weight:400;letter-spacing:1.5px;color:var(--dark);font-style:normal;white-space:nowrap;line-height:1}
-.brandmark-icon{width:64px;height:64px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:var(--gold);-webkit-mask:url('images/logo.svg') center/contain no-repeat;mask:url('images/logo.svg') center/contain no-repeat}
+.brandmark-icon{width:64px;height:64px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:var(--gold);-webkit-mask:url('images/logo-nav.svg') center/contain no-repeat;mask:url('images/logo-nav.svg') center/contain no-repeat}
 .brandmark-icon img{display:none}
 .brandmark-icon svg{width:100%;height:100%;stroke:var(--gold);fill:none;stroke-width:1.1;stroke-linecap:round;stroke-linejoin:round}
 .brandmark-location{font-family:var(--font-body);font-size:.7rem;letter-spacing:5px;text-transform:uppercase;color:var(--gold);font-weight:500}
@@ -653,7 +653,7 @@ h1,h2,h3,h4{font-family:var(--font-display);font-weight:400;line-height:1.3;font
 <nav class="navbar" id="navbar">
 <div class="container">
   <a href="#" class="nav-logo" aria-label="Les Terrasses de Lumbarda">
-    <img src="images/logo.svg" alt="Les Terrasses de Lumbarda">
+    <img src="images/logo-nav.svg" alt="Les Terrasses de Lumbarda">
   </a>
   <div class="nav-links">
     <a href="#about" data-i18n="nav_about">Pourquoi nous</a>
@@ -707,7 +707,7 @@ h1,h2,h3,h4{font-family:var(--font-display);font-weight:400;line-height:1.3;font
   </div>
   <div class="hero-content">
     <div class="hero-logo hero-logo-large">
-      <img src="images/logo.svg" alt="Les Terrasses de Lumbarda" class="hero-logo-img">
+      <img src="images/logo-hero.png" alt="Les Terrasses de Lumbarda" class="hero-logo-img">
     </div>
   </div>
   <div class="hero-scroll"><span>Scroll</span><div class="hero-scroll-line"></div></div>
@@ -753,7 +753,7 @@ h1,h2,h3,h4{font-family:var(--font-display);font-weight:400;line-height:1.3;font
       <div class="brandmark-row">
         <span class="brandmark-text">Les Terrasses</span>
         <span class="brandmark-icon" aria-hidden="true">
-          <img src="images/logo.svg" alt="">
+          <img src="images/logo-nav.svg" alt="">
         </span>
         <span class="brandmark-text">de Lumbarda</span>
       </div>
