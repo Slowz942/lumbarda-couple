@@ -1,0 +1,1544 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Les Terrasses de Lumbarda | Appartements de charme - Korcula, Croatie</title>
+<meta name="description" content="Appartements de charme avec terrasse privative, vue mer et piscine privée a Lumbarda, ile de Korcula, Croatie.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<style>
+/* ========================================
+   RESET & ROOT
+   ======================================== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gold:#C9A96E;--gold-light:#d4b97e;--gold-dark:#b8944f;
+  --dark:#1a1a1a;--dark-bg:#111111;--dark-deep:#0a0a0a;
+  --gray:#666;--gray-light:#999;--gray-subtle:#aaa;
+  --bg-light:#FAF9F7;--bg-white:#ffffff;
+  --font-display:'Playfair Display',Georgia,'Times New Roman',serif;
+  --font-body:'Inter',system-ui,-apple-system,sans-serif;
+  --radius:8px;--radius-lg:12px;--radius-xl:16px;
+  --shadow:0 4px 24px rgba(0,0,0,.06);
+  --shadow-lg:0 12px 48px rgba(0,0,0,.1);
+  --shadow-xl:0 20px 60px rgba(0,0,0,.15);
+  --transition:all .4s cubic-bezier(.25,.46,.45,.94);
+  --border-subtle:rgba(0,0,0,.06);
+}
+html{scroll-behavior:smooth;font-size:16px;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+body{font-family:var(--font-body);color:var(--dark);background:var(--bg-white);line-height:1.8;overflow-x:hidden;font-weight:300;letter-spacing:.2px}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit;transition:var(--transition)}
+button{cursor:pointer;border:none;background:none;font-family:inherit}
+ul{list-style:none}
+h1,h2,h3,h4{font-family:var(--font-display);font-weight:400;line-height:1.3;font-style:italic}
+.container{max-width:1200px;margin:0 auto;padding:0 24px}
+.container-wide{max-width:1400px;margin:0 auto;padding:0 40px}
+
+/* ========================================
+   SECTION LABELS & TITLES
+   ======================================== */
+.section-label{
+  text-align:center;font-size:.7rem;letter-spacing:4px;text-transform:uppercase;
+  color:var(--gold);font-weight:600;margin-bottom:16px;font-family:var(--font-body);font-style:normal
+}
+.section-title{
+  font-size:clamp(2rem,4.5vw,3.2rem);text-align:center;margin-bottom:20px;
+  font-weight:400;font-style:italic;letter-spacing:1px
+}
+.section-title.light{color:#fff}
+.section-title.dark{color:var(--dark)}
+.section-title::after{
+  content:'';display:block;width:50px;height:1px;background:var(--gold);margin:20px auto 0;opacity:.6
+}
+.section-subtitle{
+  text-align:center;font-size:1rem;max-width:560px;margin:24px auto 56px;
+  font-weight:300;line-height:1.8;letter-spacing:.3px
+}
+.section-subtitle.light{color:rgba(255,255,255,.6)}
+.section-subtitle.dark{color:var(--gray)}
+
+/* ========================================
+   BUTTONS
+   ======================================== */
+.btn-gold{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--gold);color:#fff;padding:14px 34px;border-radius:50px;
+  font-weight:500;font-size:.9rem;letter-spacing:.5px;transition:var(--transition);
+  text-transform:uppercase;font-family:var(--font-body)
+}
+.btn-gold:hover{background:var(--gold-dark);transform:translateY(-2px);box-shadow:0 8px 24px rgba(201,169,110,.35)}
+.btn-outline{
+  display:inline-flex;align-items:center;gap:8px;
+  border:1px solid rgba(255,255,255,.4);color:#fff;padding:14px 34px;border-radius:50px;
+  font-weight:400;font-size:.9rem;letter-spacing:.5px;transition:var(--transition);
+  background:transparent;text-transform:uppercase;font-family:var(--font-body)
+}
+.btn-outline:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.6)}
+.btn-outline-dark{
+  display:inline-flex;align-items:center;gap:8px;
+  border:1px solid var(--gold);color:var(--gold);padding:12px 30px;border-radius:50px;
+  font-weight:500;font-size:.85rem;transition:var(--transition);background:transparent;
+  text-transform:uppercase;letter-spacing:.5px;font-family:var(--font-body)
+}
+.btn-outline-dark:hover{background:var(--gold);color:#fff}
+.btn-book-large{
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--gold);color:#fff;padding:16px 40px;border-radius:50px;
+  font-weight:500;font-size:.9rem;transition:var(--transition);
+  text-transform:uppercase;letter-spacing:.5px;font-family:var(--font-body)
+}
+.btn-book-large:hover{background:var(--gold-dark);transform:translateY(-2px);box-shadow:0 8px 28px rgba(201,169,110,.4)}
+
+/* ========================================
+   REVEAL ANIMATIONS
+   ======================================== */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s cubic-bezier(.25,.46,.45,.94),transform .7s cubic-bezier(.25,.46,.45,.94)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:.1s}
+.reveal-delay-2{transition-delay:.2s}
+.reveal-delay-3{transition-delay:.3s}
+.reveal-delay-4{transition-delay:.35s}
+
+/* ========================================
+   NAVBAR
+   ======================================== */
+.navbar{
+  position:fixed;top:0;left:0;width:100%;z-index:1000;padding:24px 0;
+  transition:all .4s ease
+}
+.navbar.scrolled{
+  background:rgba(255,255,255,.97);box-shadow:0 1px 40px rgba(0,0,0,.05);
+  padding:14px 0;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)
+}
+.navbar .container{display:flex;align-items:center;justify-content:space-between}
+.nav-logo{display:flex;align-items:center;justify-content:center;width:70px;height:70px;color:var(--gold);transition:var(--transition)}
+.nav-logo svg{width:100%;height:100%;stroke:currentColor;fill:none;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}
+.navbar.scrolled .nav-logo{width:60px;height:60px}
+.nav-logo:hover{color:var(--gold-light);transform:scale(1.04)}
+.nav-tagline{display:block;font-family:var(--font-body);font-size:.55rem;letter-spacing:3.5px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-top:2px;font-weight:400;font-style:normal}
+.navbar.scrolled .nav-tagline{color:var(--gray-light)}
+.nav-links{display:flex;align-items:center;gap:36px}
+.nav-links a{
+  color:rgba(255,255,255,.85);font-size:.8rem;font-weight:400;position:relative;
+  letter-spacing:1.5px;text-transform:uppercase;font-family:var(--font-body)
+}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--gold);transition:width .4s ease}
+.nav-links a:hover::after{width:100%}
+.nav-links a:hover{color:#fff}
+.navbar.scrolled .nav-links a{color:var(--gray)}
+.navbar.scrolled .nav-links a:hover{color:var(--dark)}
+.nav-right{display:flex;align-items:center;gap:18px}
+.nav-heart{color:rgba(255,255,255,.5);transition:var(--transition);display:flex;align-items:center}
+.nav-heart svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.5}
+.nav-heart:hover{color:var(--gold)}
+.navbar.scrolled .nav-heart{color:var(--gray-light)}
+.navbar.scrolled .nav-heart:hover{color:var(--gold)}
+.lang-switcher{display:flex;gap:2px;background:rgba(255,255,255,.08);border-radius:6px;padding:3px}
+.navbar.scrolled .lang-switcher{background:rgba(0,0,0,.04)}
+.lang-btn{
+  padding:5px 10px;border-radius:4px;font-size:.7rem;font-weight:600;
+  color:rgba(255,255,255,.5);transition:var(--transition);text-transform:uppercase;
+  letter-spacing:.5px
+}
+.navbar.scrolled .lang-btn{color:var(--gray-light)}
+.lang-btn.active{background:var(--gold);color:#fff !important}
+.lang-btn:hover{color:#fff}
+.navbar.scrolled .lang-btn:hover{color:var(--dark)}
+.nav-cta{
+  padding:10px 26px;background:var(--gold);color:#fff !important;border-radius:50px;
+  font-size:.75rem;font-weight:500;letter-spacing:1px;text-transform:uppercase
+}
+.nav-cta::after{display:none !important}
+.nav-cta:hover{background:var(--gold-dark);transform:translateY(-1px)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:1001;padding:4px}
+.hamburger span{width:24px;height:1.5px;background:#fff;transition:var(--transition);border-radius:2px}
+.navbar.scrolled .hamburger span{background:var(--dark)}
+.hamburger.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hamburger.active span:nth-child(2){opacity:0}
+.hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+.mobile-nav{
+  display:none;position:fixed;top:0;left:0;width:100%;height:100vh;
+  background:rgba(10,10,10,.97);z-index:999;flex-direction:column;
+  align-items:center;justify-content:center;gap:32px;
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)
+}
+.mobile-nav.active{display:flex}
+.mobile-nav a{
+  color:rgba(255,255,255,.8);font-size:1.1rem;font-weight:400;
+  font-family:var(--font-display);font-style:italic;letter-spacing:1px
+}
+.mobile-nav a:hover{color:var(--gold)}
+.mobile-nav .lang-switcher{margin-top:24px;background:rgba(255,255,255,.08)}
+.mobile-nav .lang-btn{color:rgba(255,255,255,.4)}
+
+/* ========================================
+   HERO
+   ======================================== */
+.hero{position:relative;height:100vh;min-height:700px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:var(--dark-deep);overflow:hidden}
+.hero-bg video{width:100%;height:100%;object-fit:cover;opacity:.85;transform-origin:center;animation:kenBurns 32s ease-in-out infinite alternate;will-change:transform}
+@keyframes kenBurns{
+  0%{transform:scale(1.06) translate(0,0)}
+  50%{transform:scale(1.12) translate(-1.5%,-.5%)}
+  100%{transform:scale(1.18) translate(-2.5%,-1.2%)}
+}
+@media(prefers-reduced-motion:reduce){
+  .hero-bg video{animation:none;transform:scale(1.05)}
+}
+.hero-bg::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(0,0,0,.6) 0%,rgba(0,0,0,.55) 40%,rgba(0,0,0,.75) 100%)
+}
+.hero-content{
+  position:relative;z-index:2;text-align:center;color:#fff;padding:0 24px;max-width:800px
+}
+.hero-content .hero-location{
+  font-family:var(--font-body);font-size:clamp(.7rem,1.2vw,.85rem);font-weight:300;
+  letter-spacing:5px;text-transform:uppercase;margin-bottom:24px;
+  opacity:.6;font-style:normal
+}
+.hero-divider{width:60px;height:1px;background:var(--gold);margin:0 auto 28px;opacity:.5}
+.hero-content h1{
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:clamp(2.6rem,6vw,5rem);font-weight:500;margin-bottom:20px;
+  letter-spacing:2px;font-style:normal;line-height:1.1
+}
+.hero-desc{
+  font-size:clamp(.9rem,1.5vw,1.05rem);font-weight:300;line-height:1.8;
+  margin-bottom:44px;opacity:.65;max-width:500px;margin-left:auto;margin-right:auto;
+  letter-spacing:.4px;font-style:normal
+}
+.hero-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.hero-scroll{
+  position:absolute;bottom:44px;left:50%;transform:translateX(-50%);
+  color:rgba(255,255,255,.4);font-size:.65rem;letter-spacing:3px;text-transform:uppercase;
+  display:flex;flex-direction:column;align-items:center;gap:12px;font-family:var(--font-body)
+}
+.hero-scroll-line{
+  width:1px;height:50px;background:linear-gradient(to bottom,rgba(255,255,255,.3),transparent);
+  animation:scrollPulse 2.5s ease infinite
+}
+@keyframes scrollPulse{
+  0%{opacity:.3;height:50px}50%{opacity:.7;height:55px}100%{opacity:.3;height:50px}
+}
+
+/* ========================================
+   STATS BAR (dark, compact)
+   ======================================== */
+.stats-bar{background:var(--dark-bg);padding:40px 0;border-bottom:1px solid rgba(201,169,110,.1)}
+.stats-inner{display:flex;justify-content:center;align-items:center;gap:48px;flex-wrap:wrap}
+.stat-item{text-align:center}
+.stat-number{font-family:var(--font-display);font-size:clamp(1.8rem,3vw,2.4rem);color:#fff;font-style:italic;font-weight:400;letter-spacing:1px;line-height:1}
+.stat-text{font-size:.72rem;color:rgba(255,255,255,.4);letter-spacing:3px;text-transform:uppercase;margin-top:8px;font-weight:400}
+.stat-divider{width:1px;height:40px;background:rgba(201,169,110,.2)}
+
+/* ========================================
+   QUOTE / INTRO (light warm section)
+   ======================================== */
+.intro{padding:90px 0;background:var(--bg-light)}
+.intro-quote{
+  max-width:750px;margin:0 auto;text-align:center;position:relative;
+  padding:40px 48px;border:1px solid rgba(201,169,110,.2);border-radius:2px
+}
+.intro-quote::before{
+  content:'\201C';position:absolute;top:-20px;left:50%;transform:translateX(-50%);
+  font-family:var(--font-display);font-size:4rem;color:var(--gold);line-height:1;
+  background:var(--bg-light);padding:0 16px
+}
+.intro-quote blockquote{
+  font-family:var(--font-display);font-size:clamp(1.1rem,2vw,1.4rem);
+  color:var(--dark);font-style:italic;font-weight:400;line-height:1.8;letter-spacing:.5px;
+  margin-bottom:20px
+}
+.intro-quote cite{
+  font-family:var(--font-display);font-size:1.05rem;color:var(--gold);
+  letter-spacing:1.5px;text-transform:none;font-style:normal;font-weight:500
+}
+/* Cheval Blanc-style composed brand mark */
+.brandmark{display:flex;flex-direction:column;align-items:center;gap:14px;margin:8px 0 4px}
+.brandmark-row{display:flex;align-items:center;justify-content:center;gap:28px}
+.brandmark-text{font-family:var(--font-display);font-size:1.2rem;font-weight:400;letter-spacing:1.5px;color:var(--dark);font-style:normal;white-space:nowrap;line-height:1}
+.brandmark-icon{width:64px;height:64px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.brandmark-icon svg{width:100%;height:100%;stroke:var(--gold);fill:none;stroke-width:1.1;stroke-linecap:round;stroke-linejoin:round}
+.brandmark-location{font-family:var(--font-body);font-size:.7rem;letter-spacing:5px;text-transform:uppercase;color:var(--gold);font-weight:500}
+@media(max-width:600px){
+  .brandmark-row{gap:14px}
+  .brandmark-text{font-size:.95rem;letter-spacing:1px}
+  .brandmark-icon{width:48px;height:48px}
+  .brandmark-location{font-size:.62rem;letter-spacing:3.5px}
+}
+.intro-text{
+  max-width:700px;margin:36px auto 0;text-align:center;font-size:clamp(.92rem,1.2vw,1rem);
+  color:var(--gray);line-height:1.9;font-weight:300;letter-spacing:.3px
+}
+
+/* ========================================
+   APARTMENTS GRID (white)
+   ======================================== */
+.apartments{padding:90px 0;background:var(--bg-white)}
+.apartments-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:32px}
+.apt-card{
+  background:#fff;border-radius:var(--radius-xl);overflow:hidden;
+  box-shadow:var(--shadow);transition:var(--transition);border:1px solid var(--border-subtle)
+}
+.apt-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-xl)}
+.card-carousel{position:relative;width:100%;aspect-ratio:4/3;overflow:hidden}
+.card-carousel .slides{display:flex;width:100%;height:100%;transition:transform .5s cubic-bezier(.25,.46,.45,.94)}
+.card-carousel .slide{min-width:100%;height:100%}
+.card-carousel .slide img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+.apt-card:hover .card-carousel .slide img{transform:scale(1.03)}
+.card-carousel .arrow{
+  position:absolute;top:50%;transform:translateY(-50%);width:38px;height:38px;border-radius:50%;
+  background:rgba(255,255,255,.9);display:flex;align-items:center;justify-content:center;
+  cursor:pointer;z-index:5;transition:var(--transition);box-shadow:0 2px 12px rgba(0,0,0,.12);
+  opacity:0
+}
+.apt-card:hover .card-carousel .arrow{opacity:1}
+.card-carousel .arrow:hover{background:#fff;transform:translateY(-50%) scale(1.08)}
+.card-carousel .arrow-left{left:14px}
+.card-carousel .arrow-right{right:14px}
+.card-carousel .arrow svg{width:14px;height:14px;stroke:var(--dark);stroke-width:2.5;fill:none}
+.card-carousel .dots{
+  position:absolute;bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:5
+}
+.card-carousel .dot{
+  width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.4);
+  cursor:pointer;transition:var(--transition)
+}
+.card-carousel .dot.active{background:#fff;transform:scale(1.3)}
+.card-carousel .price-badge{
+  position:absolute;top:16px;right:16px;background:rgba(0,0,0,.55);color:#fff;
+  padding:6px 16px;border-radius:20px;font-size:.75rem;font-weight:400;z-index:5;
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);letter-spacing:.5px
+}
+.apt-card-body{padding:24px 28px 28px}
+.apt-card-name{
+  font-family:var(--font-display);font-size:1.3rem;margin-bottom:6px;
+  font-weight:400;font-style:italic;letter-spacing:.5px
+}
+.apt-card-location{
+  font-size:.8rem;color:var(--gray-light);margin-bottom:14px;display:flex;align-items:center;gap:5px;
+  font-weight:300;letter-spacing:.3px
+}
+.apt-card-location svg{width:13px;height:13px;stroke:var(--gold);stroke-width:2;fill:none}
+.apt-card-specs{
+  display:flex;gap:18px;margin-bottom:20px;padding-bottom:20px;
+  border-bottom:1px solid var(--border-subtle);font-size:.82rem;color:var(--gray-light);font-weight:300
+}
+.apt-card-specs span{display:flex;align-items:center;gap:5px}
+.apt-card-specs svg{width:14px;height:14px;stroke:var(--gold);stroke-width:1.8;fill:none}
+.apt-card-actions{display:flex;gap:12px;align-items:center}
+.apt-card-actions .btn-gold{padding:10px 24px;font-size:.8rem}
+.apt-card-actions .link-discover{
+  font-size:.8rem;color:var(--gold);font-weight:400;display:inline-flex;align-items:center;gap:5px;
+  letter-spacing:.5px;text-transform:uppercase
+}
+.apt-card-actions .link-discover:hover{color:var(--gold-dark)}
+.apt-card-actions .link-discover svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;transition:transform .3s}
+.apt-card-actions .link-discover:hover svg{transform:translateX(4px)}
+
+/* ========================================
+   APARTMENT DETAILS (alternating dark/light)
+   ======================================== */
+.apt-detail{padding:90px 0}
+.apt-detail.dark-section{background:var(--dark-bg);color:#fff}
+.apt-detail.light-section{background:var(--bg-light)}
+.apt-detail-inner{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.apt-detail.reverse .apt-detail-inner{direction:rtl}
+.apt-detail.reverse .apt-detail-inner > *{direction:ltr}
+
+.detail-carousel{position:relative;border-radius:var(--radius-xl);overflow:hidden;aspect-ratio:4/3;box-shadow:var(--shadow-lg)}
+.detail-carousel .slides{display:flex;width:100%;height:100%;transition:transform .5s cubic-bezier(.25,.46,.45,.94)}
+.detail-carousel .slide{min-width:100%;height:100%}
+.detail-carousel .slide img{width:100%;height:100%;object-fit:cover}
+.detail-carousel .arrow{
+  position:absolute;top:50%;transform:translateY(-50%);width:46px;height:46px;border-radius:50%;
+  background:rgba(255,255,255,.9);display:flex;align-items:center;justify-content:center;
+  cursor:pointer;z-index:5;transition:var(--transition);box-shadow:0 2px 12px rgba(0,0,0,.15)
+}
+.detail-carousel .arrow:hover{background:#fff;transform:translateY(-50%) scale(1.06)}
+.detail-carousel .arrow-left{left:18px}
+.detail-carousel .arrow-right{right:18px}
+.detail-carousel .arrow svg{width:16px;height:16px;stroke:var(--dark);stroke-width:2.5;fill:none}
+.detail-carousel .dots{
+  position:absolute;bottom:18px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:5
+}
+.detail-carousel .dot{
+  width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.4);
+  cursor:pointer;transition:var(--transition)
+}
+.detail-carousel .dot.active{background:#fff;transform:scale(1.2)}
+
+.apt-detail-info .detail-label{
+  font-size:.7rem;letter-spacing:4px;text-transform:uppercase;color:var(--gold);
+  font-weight:600;margin-bottom:12px;font-family:var(--font-body);font-style:normal
+}
+.apt-detail-info h2{
+  font-size:clamp(1.6rem,3vw,2.4rem);margin-bottom:20px;font-weight:400;
+  font-style:italic;letter-spacing:1px
+}
+.dark-section .apt-detail-info h2{color:#fff}
+.light-section .apt-detail-info h2{color:var(--dark)}
+.apt-detail-info .apt-specs-row{
+  display:flex;gap:22px;margin-bottom:24px;font-size:.85rem;font-weight:300
+}
+.dark-section .apt-specs-row{color:rgba(255,255,255,.5)}
+.light-section .apt-specs-row{color:var(--gray)}
+.apt-detail-info .apt-specs-row span{display:flex;align-items:center;gap:7px}
+.apt-detail-info .apt-specs-row svg{width:15px;height:15px;stroke:var(--gold);stroke-width:1.8;fill:none}
+.apt-detail-desc{font-size:.9rem;line-height:1.9;margin-bottom:28px;font-weight:300}
+.apt-detail-desc p{margin-bottom:14px}
+.dark-section .apt-detail-desc{color:rgba(255,255,255,.55)}
+.light-section .apt-detail-desc{color:var(--gray)}
+
+.amenities-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:32px}
+.amenity-item{display:flex;align-items:center;gap:10px;font-size:.85rem;padding:8px 0;font-weight:300}
+.amenity-item svg{width:18px;height:18px;stroke:var(--gold);stroke-width:1.8;fill:none;flex-shrink:0}
+.dark-section .amenity-item{color:rgba(255,255,255,.6)}
+.light-section .amenity-item{color:var(--gray)}
+
+/* ========================================
+   ABOUT / WHY (dark section)
+   ======================================== */
+.about{padding:90px 0;background:var(--dark-bg)}
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:48px;margin-top:48px}
+.feature-card{text-align:center;padding:40px 24px}
+.feature-icon{
+  width:60px;height:60px;margin:0 auto 24px;border:1px solid rgba(201,169,110,.3);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  transition:var(--transition)
+}
+.feature-card:hover .feature-icon{border-color:var(--gold);background:rgba(201,169,110,.08)}
+.feature-icon svg{width:24px;height:24px;fill:none;stroke:var(--gold);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.feature-card h3{
+  font-size:1.15rem;margin-bottom:12px;color:#fff;font-family:var(--font-display);
+  font-weight:400;font-style:italic;letter-spacing:.5px
+}
+.feature-card p{font-size:.88rem;color:rgba(255,255,255,.45);line-height:1.8;font-weight:300}
+
+/* ========================================
+   GALLERY (white)
+   ======================================== */
+.gallery{padding:90px 0;background:var(--bg-white)}
+.gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.gallery-item{
+  position:relative;border-radius:var(--radius);overflow:hidden;cursor:pointer;aspect-ratio:4/3
+}
+.gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform 6s cubic-bezier(.25,.46,.45,.94)}
+.gallery-item:hover img{transform:scale(1.08)}
+.gallery-item::after{content:'';position:absolute;inset:0;background:rgba(0,0,0,0);transition:background .4s ease}
+.gallery-item:hover::after{background:rgba(0,0,0,.12)}
+.gallery-item:nth-child(1){grid-column:span 2;grid-row:span 2}
+
+/* Lightbox */
+.lightbox{
+  display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.94);
+  align-items:center;justify-content:center;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)
+}
+.lightbox.active{display:flex}
+.lightbox img{max-width:90vw;max-height:85vh;border-radius:var(--radius);object-fit:contain}
+.lightbox-close{
+  position:absolute;top:28px;right:28px;width:44px;height:44px;border-radius:50%;
+  background:rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:var(--transition);border:1px solid rgba(255,255,255,.1)
+}
+.lightbox-close:hover{background:rgba(255,255,255,.12)}
+.lightbox-close svg{width:18px;height:18px;stroke:#fff;stroke-width:1.5}
+.lightbox-nav{
+  position:absolute;top:50%;transform:translateY(-50%);width:50px;height:50px;border-radius:50%;
+  background:rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:var(--transition);border:1px solid rgba(255,255,255,.1)
+}
+.lightbox-nav:hover{background:rgba(255,255,255,.12)}
+.lightbox-nav svg{width:20px;height:20px;stroke:#fff;stroke-width:1.5;fill:none}
+.lightbox-prev{left:28px}
+.lightbox-next{right:28px}
+
+/* ========================================
+   FAQ (light warm)
+   ======================================== */
+.faq{padding:90px 0;background:var(--bg-light)}
+.faq-list{max-width:760px;margin:0 auto}
+.faq-item{border-bottom:1px solid rgba(0,0,0,.06)}
+.faq-question{
+  display:flex;justify-content:space-between;align-items:center;padding:24px 0;
+  cursor:pointer;font-family:var(--font-display);font-size:1.05rem;color:var(--dark);
+  font-weight:400;font-style:italic;letter-spacing:.3px
+}
+.faq-question svg{
+  width:18px;height:18px;stroke:var(--gold);stroke-width:1.5;fill:none;
+  transition:transform .4s ease;flex-shrink:0;margin-left:20px
+}
+.faq-item.open .faq-question svg{transform:rotate(180deg)}
+.faq-answer{
+  max-height:0;overflow:hidden;transition:max-height .4s ease,padding .4s ease;
+  font-size:.9rem;color:var(--gray);line-height:1.8;font-weight:300
+}
+.faq-item.open .faq-answer{max-height:300px;padding-bottom:24px}
+
+/* ========================================
+   CONTACT (dark)
+   ======================================== */
+.contact{padding:90px 0;background:var(--dark-bg)}
+.contact .section-title{color:#fff}
+.contact .section-subtitle{color:rgba(255,255,255,.45)}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px}
+.contact-form{display:flex;flex-direction:column;gap:18px}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-group label{font-size:.75rem;font-weight:400;color:rgba(255,255,255,.5);letter-spacing:1px;text-transform:uppercase}
+.form-group input,.form-group select,.form-group textarea{
+  padding:14px 18px;border:1px solid rgba(255,255,255,.1);border-radius:var(--radius);
+  font-family:var(--font-body);font-size:.9rem;transition:var(--transition);
+  background:rgba(255,255,255,.04);color:#fff;font-weight:300
+}
+.form-group input::placeholder,.form-group textarea::placeholder{color:rgba(255,255,255,.25)}
+.form-group select{color:rgba(255,255,255,.6)}
+.form-group select option{background:var(--dark-bg);color:#fff}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{
+  outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,169,110,.1)
+}
+.form-group textarea{resize:vertical;min-height:120px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.contact-info{padding:36px 44px;background:rgba(255,255,255,.03);border-radius:var(--radius-xl);border:1px solid rgba(255,255,255,.06)}
+.contact-info h3{
+  font-family:var(--font-display);font-size:1.4rem;margin-bottom:28px;color:#fff;
+  font-weight:400;font-style:italic
+}
+.contact-info-item{display:flex;align-items:flex-start;gap:16px;margin-bottom:24px}
+.contact-info-item svg{width:20px;height:20px;stroke:var(--gold);stroke-width:1.5;fill:none;flex-shrink:0;margin-top:3px}
+.contact-info-item span{font-size:.88rem;color:rgba(255,255,255,.5);line-height:1.6;font-weight:300}
+
+/* ========================================
+   FOOTER (black)
+   ======================================== */
+.footer{background:var(--dark-deep);color:rgba(255,255,255,.5);padding:80px 0 36px}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:56px;margin-bottom:48px}
+.footer-brand .footer-logo{font-family:var(--font-display);font-size:1.7rem;font-weight:400;font-style:normal;letter-spacing:1.5px;text-transform:none;color:#fff;margin-bottom:10px;display:block;line-height:1}
+.footer-brand .footer-logo span{color:var(--gold);font-style:normal;font-weight:500;letter-spacing:1.5px}
+.footer-brand .footer-tagline{font-size:.55rem;letter-spacing:3.5px;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:18px;display:block;font-weight:400}
+.footer-brand p{font-size:.85rem;line-height:1.7;max-width:280px;font-weight:300}
+.footer h4{
+  color:rgba(255,255,255,.8);font-family:var(--font-display);font-size:1rem;margin-bottom:20px;
+  font-weight:400;font-style:italic
+}
+.footer-links a{
+  display:block;font-size:.85rem;padding:5px 0;color:rgba(255,255,255,.35);
+  transition:var(--transition);font-weight:300
+}
+.footer-links a:hover{color:var(--gold)}
+.footer-social{display:flex;gap:12px;margin-top:20px}
+.footer-social a{
+  width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.08);
+  display:flex;align-items:center;justify-content:center;transition:var(--transition)
+}
+.footer-social a:hover{border-color:var(--gold);background:rgba(201,169,110,.06)}
+.footer-social a svg{width:16px;height:16px;fill:rgba(255,255,255,.4)}
+.footer-social a:hover svg{fill:var(--gold)}
+.footer-bottom{
+  border-top:1px solid rgba(255,255,255,.05);padding-top:28px;text-align:center;
+  font-size:.78rem;color:rgba(255,255,255,.25);font-weight:300;letter-spacing:.3px
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+@media(max-width:1024px){
+  .apartments-grid{grid-template-columns:repeat(2,1fr);gap:24px}
+  .apt-detail-inner{grid-template-columns:1fr;gap:40px}
+  .apt-detail.reverse .apt-detail-inner{direction:ltr}
+  .gallery-grid{grid-template-columns:repeat(3,1fr)}
+  .gallery-item:nth-child(1){grid-column:span 2;grid-row:span 1}
+  .card-carousel .arrow{opacity:1}
+  .container-wide{padding:0 24px}
+  .features-grid{gap:32px}
+  .stats-inner{gap:28px}
+}
+@media(max-width:768px){
+  .nav-links,.nav-cta,.nav-heart{display:none}
+  .hamburger{display:flex}
+  .features-grid{grid-template-columns:1fr;gap:20px}
+  .apartments-grid{grid-template-columns:1fr;max-width:500px;margin-left:auto;margin-right:auto}
+  .contact-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr;gap:36px}
+  .gallery-grid{grid-template-columns:repeat(2,1fr)}
+  .gallery-item:nth-child(1){grid-column:span 1;grid-row:span 1}
+  .hero-content h1{font-size:clamp(1.8rem,7vw,2.8rem)}
+  .amenities-grid{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr}
+  .nav-right .lang-switcher{display:none}
+  .stats-bar{padding:28px 0}
+  .stats-inner{gap:20px}
+  .stat-divider{height:24px}
+  .stat-number{font-size:1.6rem}
+  .intro,.about,.apartments,.apt-detail,.gallery,.faq,.contact{padding:60px 0}
+  .section-subtitle{margin-bottom:36px}
+  .card-carousel .arrow{opacity:1}
+  .feature-card{padding:24px 16px}
+  .intro-quote{padding:32px 24px}
+}
+@media(max-width:480px){
+  .hero-btns{flex-direction:column;align-items:center}
+  .btn-gold,.btn-outline{width:100%;justify-content:center}
+  .apt-detail-inner{gap:32px}
+  .stats-inner{gap:14px}
+  .stat-divider{display:none}
+}
+
+.form-hint{font-size:.78rem;color:rgba(255,255,255,.5);font-style:italic;letter-spacing:.3px;margin:-8px 0 4px;line-height:1.6}
+
+/* ========================================
+   LOCATION (minimalist map)
+   ======================================== */
+.location{padding:120px 0;background:var(--bg-light);position:relative}
+.location-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:48px;margin-top:48px;align-items:stretch}
+.map-wrap{position:relative;border-radius:var(--radius-xl);overflow:hidden;box-shadow:var(--shadow-lg);min-height:520px;background:#e8e6e1}
+#locationMap{width:100%;height:100%;min-height:520px;filter:saturate(.85) contrast(1.02)}
+.leaflet-container{background:#f4f2ee !important;font-family:var(--font-body) !important}
+.leaflet-control-attribution{background:rgba(255,255,255,.85) !important;font-size:.65rem !important;padding:2px 8px !important}
+.leaflet-bar a{border:none !important;background:#fff !important;color:var(--dark) !important;border-bottom:1px solid var(--border-subtle) !important;width:34px !important;height:34px !important;line-height:34px !important;font-weight:300 !important;font-size:1.1rem !important}
+.leaflet-bar a:hover{background:var(--gold) !important;color:#fff !important}
+.leaflet-bar{box-shadow:var(--shadow) !important;border-radius:var(--radius) !important;overflow:hidden}
+.gold-marker{display:flex;align-items:center;justify-content:center;width:44px;height:44px;background:var(--gold);border-radius:50% 50% 50% 0;transform:rotate(-45deg);box-shadow:0 6px 20px rgba(201,169,110,.55),0 0 0 4px rgba(255,255,255,.95);position:relative}
+.gold-marker::after{content:'';width:14px;height:14px;border-radius:50%;background:#fff;transform:rotate(45deg)}
+.gold-marker-pulse{position:absolute;top:50%;left:50%;width:44px;height:44px;border-radius:50%;background:var(--gold);transform:translate(-50%,-50%);animation:pulse 2.5s ease-out infinite;opacity:.5;pointer-events:none;z-index:-1}
+@keyframes pulse{0%{transform:translate(-50%,-50%) scale(1);opacity:.5}100%{transform:translate(-50%,-50%) scale(2.6);opacity:0}}
+.location-info{display:flex;flex-direction:column;justify-content:center;padding:8px 0}
+.location-address{margin-bottom:36px;padding-bottom:28px;border-bottom:1px solid var(--border-subtle)}
+.location-address-label{font-size:.7rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:14px;display:block}
+.location-address-text{font-family:var(--font-display);font-size:1.4rem;font-style:italic;line-height:1.4;color:var(--dark);margin-bottom:6px}
+.location-address-sub{font-size:.85rem;color:var(--gray);letter-spacing:.5px}
+.location-distances{display:flex;flex-direction:column;gap:18px;margin-bottom:36px}
+.dist-item{display:flex;align-items:center;gap:18px;padding:14px 0;border-bottom:1px solid var(--border-subtle)}
+.dist-item:last-child{border-bottom:none}
+.dist-icon{flex-shrink:0;width:42px;height:42px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow);color:var(--gold)}
+.dist-icon svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.dist-text{flex:1}
+.dist-name{font-size:.95rem;color:var(--dark);font-weight:500;margin-bottom:2px}
+.dist-value{font-size:.78rem;color:var(--gray);letter-spacing:.5px}
+.location-actions{display:flex;gap:12px;flex-wrap:wrap}
+.location-actions .btn-outline-dark{flex:1;min-width:160px;justify-content:center}
+@media(max-width:900px){
+  .location-grid{grid-template-columns:1fr;gap:32px}
+  .map-wrap,#locationMap{min-height:380px}
+  .location{padding:80px 0}
+}
+@media(max-width:480px){
+  .location-address-text{font-size:1.15rem}
+  .location-actions{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<!-- ========================================
+     NAVBAR
+     ======================================== -->
+<nav class="navbar" id="navbar">
+<div class="container">
+  <a href="#" class="nav-logo" aria-label="Les Terrasses de Lumbarda">
+    <svg viewBox="0 0 80 80" aria-hidden="true">
+      <path d="M14 64 L14 30 Q14 14 40 14 Q66 14 66 30 L66 64"/>
+      <line x1="8" y1="68" x2="72" y2="68"/>
+      <line x1="40" y1="22" x2="40" y2="26"/>
+      <path d="M28 32 Q40 26 52 32 L28 32"/>
+      <line x1="34" y1="29" x2="34" y2="32"/>
+      <line x1="46" y1="29" x2="46" y2="32"/>
+      <line x1="40" y1="32" x2="40" y2="56"/>
+      <line x1="34" y1="56" x2="46" y2="56"/>
+      <line x1="35" y1="56" x2="35" y2="64"/>
+      <line x1="45" y1="56" x2="45" y2="64"/>
+      <path d="M22 64 L22 50 L26 50 L26 64 M22 56 L26 56"/>
+      <path d="M54 64 L54 50 L58 50 L58 64 M54 56 L58 56"/>
+    </svg>
+  </a>
+  <div class="nav-links">
+    <a href="#about" data-i18n="nav_about">Pourquoi nous</a>
+    <a href="#apartments" data-i18n="nav_apartments">Appartements</a>
+    <a href="#location" data-i18n="nav_location">Localisation</a>
+    <a href="#gallery" data-i18n="nav_gallery">Galerie</a>
+    <a href="#faq" data-i18n="nav_faq">FAQ</a>
+    <a href="#contact" data-i18n="nav_contact">Contact</a>
+  </div>
+  <div class="nav-right">
+    <a href="#apartments" class="nav-heart" aria-label="Favorites"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></a>
+    <div class="lang-switcher">
+      <button class="lang-btn active" data-lang="fr">FR</button>
+      <button class="lang-btn" data-lang="en">EN</button>
+      <button class="lang-btn" data-lang="it">IT</button>
+      <button class="lang-btn" data-lang="de">DE</button>
+      <button class="lang-btn" data-lang="hr">HR</button>
+    </div>
+    <a href="#contact" class="nav-cta" data-i18n="nav_cta">R&#233;server</a>
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+  </div>
+</div>
+</nav>
+
+<!-- Mobile Nav -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="#about" data-i18n="nav_about" onclick="closeMobile()">Pourquoi nous</a>
+  <a href="#apartments" data-i18n="nav_apartments" onclick="closeMobile()">Appartements</a>
+  <a href="#location" data-i18n="nav_location" onclick="closeMobile()">Localisation</a>
+  <a href="#gallery" data-i18n="nav_gallery" onclick="closeMobile()">Galerie</a>
+  <a href="#faq" data-i18n="nav_faq" onclick="closeMobile()">FAQ</a>
+  <a href="#contact" data-i18n="nav_contact" onclick="closeMobile()">Contact</a>
+  <a href="#contact" class="btn-gold" data-i18n="nav_cta" onclick="closeMobile()">R&#233;server</a>
+  <div class="lang-switcher">
+    <button class="lang-btn active" data-lang="fr">FR</button>
+    <button class="lang-btn" data-lang="en">EN</button>
+    <button class="lang-btn" data-lang="it">IT</button>
+    <button class="lang-btn" data-lang="de">DE</button>
+    <button class="lang-btn" data-lang="hr">HR</button>
+  </div>
+</div>
+
+<!-- ========================================
+     1. HERO (dark cinematic video)
+     ======================================== -->
+<section class="hero" id="hero">
+  <div class="hero-bg">
+    <video id="heroVideo" autoplay muted loop playsinline preload="auto" poster="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1920&q=80">
+      <source src="videos/hero.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="hero-content">
+    <p class="hero-location" data-i18n="hero_location">Lumbarda, &#206;le de Kor&#269;ula &#8212; Croatie</p>
+    <div class="hero-divider"></div>
+    <h1 data-i18n="hero_title">Les Terrasses de Lumbarda</h1>
+    <p class="hero-desc" data-i18n="hero_desc">Appartements de charme avec terrasse privative, vue mer et piscine privée</p>
+    <div class="hero-btns">
+      <a href="#apartments" class="btn-gold" data-i18n="hero_cta1">D&#233;couvrir nos appartements</a>
+      <a href="#contact" class="btn-outline" data-i18n="hero_cta2">R&#233;server maintenant</a>
+    </div>
+  </div>
+  <div class="hero-scroll"><span>Scroll</span><div class="hero-scroll-line"></div></div>
+</section>
+
+<!-- ========================================
+     2. STATS BAR (dark, compact)
+     ======================================== -->
+<section class="stats-bar">
+<div class="container">
+  <div class="stats-inner">
+    <div class="stat-item reveal">
+      <div class="stat-number" data-count="4">0</div>
+      <div class="stat-text" data-i18n="stat_apartments">Appartements</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item reveal reveal-delay-1">
+      <div class="stat-number" data-i18n="stat_vue_val">Vue Mer</div>
+      <div class="stat-text" data-i18n="stat_vue">Panoramique</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item reveal reveal-delay-2">
+      <div class="stat-number" data-i18n="stat_piscine_val">Piscine</div>
+      <div class="stat-text" data-i18n="stat_piscine">Privée</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item reveal reveal-delay-3">
+      <div class="stat-number" data-count="50">0</div>
+      <div class="stat-text">m&#178; <span data-i18n="stat_each">chacun</span></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ========================================
+     3. INTRO QUOTE (light warm)
+     ======================================== -->
+<section class="intro" id="intro">
+<div class="container">
+  <div class="intro-quote reveal">
+    <blockquote data-i18n="intro_quote">Un havre de paix m&#233;diterran&#233;en, o&#249; chaque d&#233;tail invite &#224; la contemplation.</blockquote>
+    <div class="brandmark">
+      <div class="brandmark-row">
+        <span class="brandmark-text">Les Terrasses</span>
+        <span class="brandmark-icon" aria-hidden="true">
+          <svg viewBox="0 0 80 80">
+            <path d="M14 64 L14 30 Q14 14 40 14 Q66 14 66 30 L66 64"/>
+            <line x1="8" y1="68" x2="72" y2="68"/>
+            <line x1="40" y1="22" x2="40" y2="26"/>
+            <path d="M28 32 Q40 26 52 32 L28 32"/>
+            <line x1="34" y1="29" x2="34" y2="32"/>
+            <line x1="46" y1="29" x2="46" y2="32"/>
+            <line x1="40" y1="32" x2="40" y2="56"/>
+            <line x1="34" y1="56" x2="46" y2="56"/>
+            <line x1="35" y1="56" x2="35" y2="64"/>
+            <line x1="45" y1="56" x2="45" y2="64"/>
+            <path d="M22 64 L22 50 L26 50 L26 64 M22 56 L26 56"/>
+            <path d="M54 64 L54 50 L58 50 L58 64 M54 56 L58 56"/>
+          </svg>
+        </span>
+        <span class="brandmark-text">de Lumbarda</span>
+      </div>
+      <div class="brandmark-location" data-i18n="brand_location">Lumbarda · Croatie</div>
+    </div>
+  </div>
+  <div class="intro-text reveal">
+    <p data-i18n="intro_text">Situ&#233;s &#224; Lumbarda, l&#8217;un des villages les plus pris&#233;s et authentiques de l&#8217;&#238;le de Kor&#269;ula, les appartements Les Terrasses offrent un cadre de s&#233;jour paisible et privil&#233;gi&#233;, &#224; seulement quelques minutes des plages aux eaux turquoise et du centre du village.</p>
+  </div>
+</div>
+</section>
+
+<!-- ========================================
+     4. APARTMENTS GRID (white)
+     ======================================== -->
+<!-- ========================================
+     GALLERY (white) — moved above apartments
+     ======================================== -->
+<section class="gallery" id="gallery">
+<div class="container">
+  <p class="section-label reveal" data-i18n="gallery_label">Galerie</p>
+  <h2 class="section-title dark reveal" data-i18n="gallery_title">Galerie</h2>
+  <p class="section-subtitle dark reveal" data-i18n="gallery_subtitle">Découvrez Les Terrasses en images</p>
+  <div class="gallery-grid">
+    <div class="gallery-item reveal" data-gallery><img src="https://framerusercontent.com/images/nKsJ8VksG3aRR2545yxFcaV1mEU.jpeg" alt="Les Terrasses" loading="lazy"></div>
+    <div class="gallery-item reveal" data-gallery><img src="https://framerusercontent.com/images/iWPjLpe5ckTWPHxSjeYAEszyTkE.jpeg" alt="Les Terrasses" loading="lazy"></div>
+    <div class="gallery-item reveal" data-gallery><img src="https://framerusercontent.com/images/23y3XYpbk5nnsrGR1wJp8P5pE.jpeg" alt="Les Terrasses" loading="lazy"></div>
+    <div class="gallery-item reveal" data-gallery><img src="https://framerusercontent.com/images/VuJ6dcdUcstDm3qv9gWg2LL18.jpeg" alt="Les Terrasses" loading="lazy"></div>
+    <div class="gallery-item reveal" data-gallery><img src="https://framerusercontent.com/images/2KqyrZXB1GGPBLG7jEoQhfWvUqI.jpeg" alt="Les Terrasses" loading="lazy"></div>
+    <div class="gallery-item reveal" data-gallery><img src="https://framerusercontent.com/images/1GgTU2SZEn8J5T3G1TA93zkpo.jpeg" alt="Les Terrasses" loading="lazy"></div>
+    <div class="gallery-item reveal" data-gallery><img src="https://framerusercontent.com/images/PPchaLmAMunZxA1r589kbVzs0.jpeg" alt="Les Terrasses" loading="lazy"></div>
+    <div class="gallery-item reveal" data-gallery><img src="https://framerusercontent.com/images/eh8QVKg5tqjqoSrxYUidY4mWFHw.jpeg" alt="Les Terrasses" loading="lazy"></div>
+  </div>
+</div>
+</section>
+
+<section class="apartments" id="apartments">
+<div class="container">
+  <p class="section-label reveal" data-i18n="apt_label">Collection</p>
+  <h2 class="section-title dark reveal" data-i18n="apt_title">Nos Appartements</h2>
+  <p class="section-subtitle dark reveal" data-i18n="apt_subtitle">Quatre appartements de charme, chacun avec terrasse privative et vue mer</p>
+  <div class="apartments-grid">
+
+    <!-- Horizon -->
+    <div class="apt-card reveal">
+      <div class="card-carousel" data-carousel>
+        <div class="slides">
+          <div class="slide"><img src="https://framerusercontent.com/images/eh8QVKg5tqjqoSrxYUidY4mWFHw.jpeg" alt="Appartement 1" loading="lazy"></div>
+          <div class="slide"><img src="https://framerusercontent.com/images/FKFNZrrhKNtl77rsdGhXRcs98.jpeg" alt="Appartement 1" loading="lazy"></div>
+          <div class="slide"><img src="https://framerusercontent.com/images/R1CDj1wyOymN7MV9UVbZdmkuc.jpeg" alt="Appartement 1" loading="lazy"></div>
+        </div>
+        <button class="arrow arrow-left" aria-label="Previous"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+        <button class="arrow arrow-right" aria-label="Next"><svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg></button>
+        <div class="dots"><span class="dot active"></span><span class="dot"></span><span class="dot"></span></div>
+        <div class="price-badge" data-i18n="price_badge">&#192; partir de 120&#8364;/nuit</div>
+      </div>
+      <div class="apt-card-body">
+        <h3 class="apt-card-name">Appartement 1</h3>
+        <p class="apt-card-location"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Lumbarda, Kor&#269;ula</p>
+        <div class="apt-card-specs">
+          <span><svg viewBox="0 0 24 24"><path d="M2 4v16h20V4H2zm0 8h20"/></svg> 1 <span data-i18n="spec_ch">ch</span></span>
+          <span><svg viewBox="0 0 24 24"><path d="M4 12h16M4 12a4 4 0 0 0 4 4h8a4 4 0 0 0 4-4M6 12V5a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v1"/></svg> 1 <span data-i18n="spec_sdb">sdb</span></span>
+          <span><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/></svg> 50m&#178;</span>
+        </div>
+        <div class="apt-card-actions">
+          <a href="#contact" class="btn-gold" data-i18n="btn_reserve">R&#233;server</a>
+          <a href="#detail-horizon" class="link-discover"><span data-i18n="btn_discover">D&#233;couvrir</span> <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Azur -->
+    <div class="apt-card reveal reveal-delay-1">
+      <div class="card-carousel" data-carousel>
+        <div class="slides">
+          <div class="slide"><img src="https://framerusercontent.com/images/xN57AkWWihveVttFiRviniZZcE.jpeg" alt="Appartement 2" loading="lazy"></div>
+          <div class="slide"><img src="https://framerusercontent.com/images/HFEgsHyakBLdl5ytDNdM86OaBE.jpeg" alt="Appartement 2" loading="lazy"></div>
+          <div class="slide"><img src="https://framerusercontent.com/images/OnhJS6VTZZEndBTqxvxxQfLGjPg.jpeg" alt="Appartement 2" loading="lazy"></div>
+        </div>
+        <button class="arrow arrow-left" aria-label="Previous"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+        <button class="arrow arrow-right" aria-label="Next"><svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg></button>
+        <div class="dots"><span class="dot active"></span><span class="dot"></span><span class="dot"></span></div>
+        <div class="price-badge" data-i18n="price_badge">&#192; partir de 120&#8364;/nuit</div>
+      </div>
+      <div class="apt-card-body">
+        <h3 class="apt-card-name">Appartement 2</h3>
+        <p class="apt-card-location"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Lumbarda, Kor&#269;ula</p>
+        <div class="apt-card-specs">
+          <span><svg viewBox="0 0 24 24"><path d="M2 4v16h20V4H2zm0 8h20"/></svg> 1 <span data-i18n="spec_ch">ch</span></span>
+          <span><svg viewBox="0 0 24 24"><path d="M4 12h16M4 12a4 4 0 0 0 4 4h8a4 4 0 0 0 4-4M6 12V5a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v1"/></svg> 1 <span data-i18n="spec_sdb">sdb</span></span>
+          <span><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/></svg> 50m&#178;</span>
+        </div>
+        <div class="apt-card-actions">
+          <a href="#contact" class="btn-gold" data-i18n="btn_reserve">R&#233;server</a>
+          <a href="#detail-azur" class="link-discover"><span data-i18n="btn_discover">D&#233;couvrir</span> <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Soleil -->
+    <div class="apt-card reveal reveal-delay-2">
+      <div class="card-carousel" data-carousel>
+        <div class="slides">
+          <div class="slide"><img src="https://framerusercontent.com/images/T1uS9VLWwvHDi5fT7JVwy1zVldk.jpeg" alt="Appartement 3" loading="lazy"></div>
+          <div class="slide"><img src="https://framerusercontent.com/images/9BQvevxfbA54mVxX3Up3Pf90.jpeg" alt="Appartement 3" loading="lazy"></div>
+          <div class="slide"><img src="https://framerusercontent.com/images/xInZGKH77rwNU6wMrVPmnSeOIoI.jpeg" alt="Appartement 3" loading="lazy"></div>
+        </div>
+        <button class="arrow arrow-left" aria-label="Previous"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+        <button class="arrow arrow-right" aria-label="Next"><svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg></button>
+        <div class="dots"><span class="dot active"></span><span class="dot"></span><span class="dot"></span></div>
+        <div class="price-badge" data-i18n="price_badge">&#192; partir de 120&#8364;/nuit</div>
+      </div>
+      <div class="apt-card-body">
+        <h3 class="apt-card-name">Appartement 3</h3>
+        <p class="apt-card-location"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Lumbarda, Kor&#269;ula</p>
+        <div class="apt-card-specs">
+          <span><svg viewBox="0 0 24 24"><path d="M2 4v16h20V4H2zm0 8h20"/></svg> 1 <span data-i18n="spec_ch">ch</span></span>
+          <span><svg viewBox="0 0 24 24"><path d="M4 12h16M4 12a4 4 0 0 0 4 4h8a4 4 0 0 0 4-4M6 12V5a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v1"/></svg> 1 <span data-i18n="spec_sdb">sdb</span></span>
+          <span><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/></svg> 50m&#178;</span>
+        </div>
+        <div class="apt-card-actions">
+          <a href="#contact" class="btn-gold" data-i18n="btn_reserve">R&#233;server</a>
+          <a href="#detail-soleil" class="link-discover"><span data-i18n="btn_discover">D&#233;couvrir</span> <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Terrasse -->
+    <div class="apt-card reveal reveal-delay-3">
+      <div class="card-carousel" data-carousel>
+        <div class="slides">
+          <div class="slide"><img src="https://framerusercontent.com/images/h7ffYlYXsrLFHkaeTNhHIlsE0.jpeg" alt="Appartement 4" loading="lazy"></div>
+          <div class="slide"><img src="https://framerusercontent.com/images/0ywufd5ck2I9pnabLCY4zweD8s.jpeg" alt="Appartement 4" loading="lazy"></div>
+          <div class="slide"><img src="https://framerusercontent.com/images/vnmPu3jaYq8UpRQLEwAhgIwop7c.jpeg" alt="Appartement 4" loading="lazy"></div>
+        </div>
+        <button class="arrow arrow-left" aria-label="Previous"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+        <button class="arrow arrow-right" aria-label="Next"><svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg></button>
+        <div class="dots"><span class="dot active"></span><span class="dot"></span><span class="dot"></span></div>
+        <div class="price-badge" data-i18n="price_badge">&#192; partir de 120&#8364;/nuit</div>
+      </div>
+      <div class="apt-card-body">
+        <h3 class="apt-card-name">Appartement 4</h3>
+        <p class="apt-card-location"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Lumbarda, Kor&#269;ula</p>
+        <div class="apt-card-specs">
+          <span><svg viewBox="0 0 24 24"><path d="M2 4v16h20V4H2zm0 8h20"/></svg> 1 <span data-i18n="spec_ch">ch</span></span>
+          <span><svg viewBox="0 0 24 24"><path d="M4 12h16M4 12a4 4 0 0 0 4 4h8a4 4 0 0 0 4-4M6 12V5a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v1"/></svg> 1 <span data-i18n="spec_sdb">sdb</span></span>
+          <span><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/></svg> 50m&#178;</span>
+        </div>
+        <div class="apt-card-actions">
+          <a href="#contact" class="btn-gold" data-i18n="btn_reserve">R&#233;server</a>
+          <a href="#detail-terrasse" class="link-discover"><span data-i18n="btn_discover">D&#233;couvrir</span> <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg></a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- ========================================
+     5. DETAIL: HORIZON (dark)
+     ======================================== -->
+<section class="apt-detail dark-section" id="detail-horizon">
+<div class="container">
+  <div class="apt-detail-inner">
+    <div class="detail-carousel reveal" data-carousel>
+      <div class="slides">
+        <div class="slide"><img src="https://framerusercontent.com/images/eh8QVKg5tqjqoSrxYUidY4mWFHw.jpeg" alt="Appartement 1"></div>
+        <div class="slide"><img src="https://framerusercontent.com/images/FKFNZrrhKNtl77rsdGhXRcs98.jpeg" alt="Appartement 1"></div>
+        <div class="slide"><img src="https://framerusercontent.com/images/R1CDj1wyOymN7MV9UVbZdmkuc.jpeg" alt="Appartement 1"></div>
+      </div>
+      <button class="arrow arrow-left" aria-label="Previous"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+      <button class="arrow arrow-right" aria-label="Next"><svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg></button>
+      <div class="dots"><span class="dot active"></span><span class="dot"></span><span class="dot"></span></div>
+    </div>
+    <div class="apt-detail-info reveal">
+      <p class="detail-label" data-i18n="apt_label">Collection</p>
+      <h2>Appartement 1</h2>
+      <div class="apt-specs-row">
+        <span><svg viewBox="0 0 24 24"><path d="M2 4v16h20V4H2zm0 8h20"/></svg> 1 <span data-i18n="spec_chambre">chambre</span></span>
+        <span><svg viewBox="0 0 24 24"><path d="M4 12h16M4 12a4 4 0 0 0 4 4h8a4 4 0 0 0 4-4M6 12V5a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v1"/></svg> 1 <span data-i18n="spec_sdb_full">salle de bain</span></span>
+        <span><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/></svg> 50m&#178;</span>
+      </div>
+      <div class="apt-detail-desc" data-i18n="apt_desc_full"><p>Appartement de charme &#224; Lumbarda avec terrasse privative, vue mer et acc&#232;s &#224; une piscine privée. Id&#233;al pour un s&#233;jour au calme sur l&#8217;&#238;le de Kor&#269;ula.</p><p>Situ&#233;s &#224; Lumbarda, l&#8217;un des villages les plus pris&#233;s et authentiques de l&#8217;&#238;le de Kor&#269;ula, les appartements Les Terrasses offrent un cadre de s&#233;jour paisible et privil&#233;gi&#233;, &#224; seulement quelques minutes des plages aux eaux turquoise et du centre du village.</p><p>Nich&#233;s sur les hauteurs, les appartements b&#233;n&#233;ficient d&#8217;une situation exceptionnelle avec une vue d&#233;gag&#233;e sur la marina, la baie de Lumbarda et, en arri&#232;re-plan, la montagne Saint Ilia.</p><p>Chaque appartement comprend un s&#233;jour lumineux avec cuisine moderne enti&#232;rement &#233;quip&#233;e, une chambre confortable avec salle de bain, ainsi qu&#8217;une terrasse privative. Une place de parking privative est &#233;galement incluse.</p></div>
+      <div class="amenities-grid">
+        <div class="amenity-item"><svg viewBox="0 0 24 24"><rect x="2" y="12" width="20" height="8" rx="1"/><path d="M4 12V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/></svg> <span data-i18n="amenity_terrasse">Terrasse privative</span></div>
+        <div class="amenity-item"><svg viewBox="0 0 24 24"><path d="M2 12s4-8 10-8 10 8 10 8-4 8-10 8S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg> <span data-i18n="amenity_vue">Vue mer</span></div>
+        <div class="amenity-item"><svg viewBox="0 0 24 24"><path d="M2 16c2-4 4-6 10-6s8 2 10 6"/><path d="M7 16c1-2 2.5-3 5-3s4 1 5 3"/></svg> <span data-i18n="amenity_piscine">Piscine privée de l'immeuble</span></div>
+        <div class="amenity-item"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> <span data-i18n="amenity_cuisine">Cuisine &#233;quip&#233;e</span></div>
+        <div class="amenity-item"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 12h18M12 3v18"/></svg> <span data-i18n="amenity_parking">Parking priv&#233;</span></div>
+        <div class="amenity-item"><svg viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1"/></svg> <span data-i18n="amenity_wifi">Wifi haut d&#233;bit</span></div>
+      </div>
+      <a href="#contact" class="btn-book-large" data-i18n="btn_book_apt">R&#233;server cet appartement</a>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ========================================
+     6. DETAIL: AZUR (light warm) - reversed
+     ======================================== -->
+<section class="apt-detail light-section reverse" id="detail-azur">
+<div class="container">
+  <div class="apt-detail-inner">
+    <div class="detail-carousel reveal" data-carousel>
+      <div class="slides">
+        <div class="slide"><img src="https://framerusercontent.com/images/xN57AkWWihveVttFiRviniZZcE.jpeg" alt="Appartement 2"></div>
+        <div class="slide"><img src="https://framerusercontent.com/images/HFEgsHyakBLdl5ytDNdM86OaBE.jpeg" alt="Appartement 2"></div>
+        <div class="slide"><img src="https://framerusercontent.com/images/OnhJS6VTZZEndBTqxvxxQfLGjPg.jpeg" alt="Appartement 2"></div>
+      </div>
+      <button class="arrow arrow-left" aria-label="Previous"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+      <button class="arrow arrow-right" aria-label="Next"><svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg></button>
+      <div class="dots"><span class="dot active"></span><span class="dot"></span><span class="dot"></span></div>
+    </div>
+    <div class="apt-detail-info reveal">
+      <p class="detail-label" data-i18n="apt_label">Collection</p>
+      <h2>Appartement 2</h2>
+      <div class="apt-specs-row">
+        <span><svg viewBox="0 0 24 24"><path d="M2 4v16h20V4H2zm0 8h20"/></svg> 1 <span data-i18n="spec_chambre">chambre</span></span>
+        <span><svg viewBox="0 0 24 24"><path d="M4 12h16M4 12a4 4 0 0 0 4 4h8a4 4 0 0 0 4-4M6 12V5a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v1"/></svg> 1 <span data-i18n="spec_sdb_full">salle de bain</span></span>
+        <span><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/></svg> 50m&#178;</span>
+      </div>
+      <div class="apt-detail-desc" data-i18n="apt_desc_full"><p>Appartement de charme &#224; Lumbarda avec terrasse privative, vue mer et acc&#232;s &#224; une piscine privée. Id&#233;al pour un s&#233;jour au calme sur l&#8217;&#238;le de Kor&#269;ula.</p><p>Situ&#233;s &#224; Lumbarda, l&#8217;un des villages les plus pris&#233;s et authentiques de l&#8217;&#238;le de Kor&#269;ula, les appartements Les Terrasses offrent un cadre de s&#233;jour paisible et privil&#233;gi&#233;, &#224; seulement quelques minutes des plages aux eaux turquoise et du centre du village.</p><p>Nich&#233;s sur les hauteurs, les appartements b&#233;n&#233;ficient d&#8217;une situation exceptionnelle avec une vue d&#233;gag&#233;e sur la marina, la baie de Lumbarda et, en arri&#232;re-plan, la montagne Saint Ilia.</p><p>Chaque appartement comprend un s&#233;jour lumineux avec cuisine moderne enti&#232;rement &#233;quip&#233;e, une chambre confortable avec salle de bain, ainsi qu&#8217;une terrasse privative. Une place de parking privative est &#233;galement incluse.</p></div>
+      <div class="amenities-grid">
+        <div class="amenity-item"><svg viewBox="0 0 24 24"><rect x="2" y="12" width="20" height="8" rx="1"/><path d="M4 12V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/></svg> <span data-i18n="amenity_terrasse">Terrasse privative</span></div>
+        <div class="amenity-item"><svg viewBox="0 0 24 24"><path d="M2 12s4-8 10-8 10 8 10 8-4 8-10 8S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg> <span data-i18n="amenity_vue">Vue mer</span></div>
+        <div class="amenity-item"><svg viewBox="0 0 24 24"><path d="M2 16c2-4 4-6 10-6s8 2 10 6"/><path d="M7 16c1-2 2.5-3 5-3s4 1 5 3"/></svg> <span data-i18n="amenity_piscine">Piscine privée de l'immeuble</span></div>
+        <div class="amenity-item"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> <span data-i18n="amenity_cuisine">Cuisine &#233;quip&#233;e</span></div>
+        <div class="amenity-item"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 12h18M12 3v18"/></svg> <span data-i18n="amenity_parking">Parking priv&#233;</span></div>
+        <div class="amenity-item"><svg viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1"/></svg> <span data-i18n="amenity_wifi">Wifi haut d&#233;bit</span></div>
+      </div>
+      <a href="#contact" class="btn-book-large" data-i18n="btn_book_apt">R&#233;server cet appartement</a>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ========================================
+     7. DETAIL: SOLEIL (dark)
+     ======================================== -->
+<section class="apt-detail dark-section" id="detail-soleil">
+<div class="container">
+  <div class="apt-detail-inner">
+    <div class="detail-carousel reveal" data-carousel>
+      <div class="slides">
+        <div class="slide"><img src="https://framerusercontent.com/images/T1uS9VLWwvHDi5fT7JVwy1zVldk.jpeg" alt="Appartement 3"></div>
+        <div class="slide"><img src="https://framerusercontent.com/images/9BQvevxfbA54mVxX3Up3Pf90.jpeg" alt="Appartement 3"></div>
+        <div class="slide"><img src="https://framerusercontent.com/images/xInZGKH77rwNU6wMrVPmnSeOIoI.jpeg" alt="Appartement 3"></div>
+      </div>
+      <button class="arrow arrow-left" aria-label="Previous"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+      <button class="arrow arrow-right" aria-label="Next"><svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg></button>
+      <div class="dots"><span class="dot active"></span><span class="dot"></span><span class="dot"></span></div>
+    </div>
+    <div class="apt-detail-info reveal">
+      <p class="detail-label" data-i18n="apt_label">Collection</p>
+      <h2>Appartement 3</h2>
+      <div class="apt-specs-row">
+        <span><svg viewBox="0 0 24 24"><path d="M2 4v16h20V4H2zm0 8h20"/></svg> 1 <span data-i18n="spec_chambre">chambre</span></span>
+        <span><svg viewBox="0 0 24 24"><path d="M4 12h16M4 12a4 4 0 0 0 4 4h8a4 4 0 0 0 4-4M6 12V5a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v1"/></svg> 1 <span data-i18n="spec_sdb_full">salle de bain</span></span>
+        <span><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/></svg> 50m&#178;</span>
+      </div>
+      <div class="apt-detail-desc" data-i18n="apt_desc_full"><p>Appartement de charme &#224; Lumbarda avec terrasse privative, vue mer et acc&#232;s &#224; une piscine privée. Id&#233;al pour un s&#233;jour au calme sur l&#8217;&#238;le de Kor&#269;ula.</p><p>Situ&#233;s &#224; Lumbarda, l&#8217;un des villages les plus pris&#233;s et authentiques de l&#8217;&#238;le de Kor&#269;ula, les appartements Les Terrasses offrent un cadre de s&#233;jour paisible et privil&#233;gi&#233;, &#224; seulement quelques minutes des plages aux eaux turquoise et du centre du village.</p><p>Nich&#233;s sur les hauteurs, les appartements b&#233;n&#233;ficient d&#8217;une situation exceptionnelle avec une vue d&#233;gag&#233;e sur la marina, la baie de Lumbarda et, en arri&#232;re-plan, la montagne Saint Ilia.</p><p>Chaque appartement comprend un s&#233;jour lumineux avec cuisine moderne enti&#232;rement &#233;quip&#233;e, une chambre confortable avec salle de bain, ainsi qu&#8217;une terrasse privative. Une place de parking privative est &#233;galement incluse.</p></div>
+      <div class="amenities-grid">
+        <div class="amenity-item"><svg viewBox="0 0 24 24"><rect x="2" y="12" width="20" height="8" rx="1"/><path d="M4 12V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/></svg> <span data-i18n="amenity_terrasse">Terrasse privative</span></div>
+        <div class="amenity-item"><svg viewBox="0 0 24 24"><path d="M2 12s4-8 10-8 10 8 10 8-4 8-10 8S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg> <span data-i18n="amenity_vue">Vue mer</span></div>
+        <div class="amenity-item"><svg viewBox="0 0 24 24"><path d="M2 16c2-4 4-6 10-6s8 2 10 6"/><path d="M7 16c1-2 2.5-3 5-3s4 1 5 3"/></svg> <span data-i18n="amenity_piscine">Piscine privée de l'immeuble</span></div>
+        <div class="amenity-item"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> <span data-i18n="amenity_cuisine">Cuisine &#233;quip&#233;e</span></div>
+        <div class="amenity-item"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 12h18M12 3v18"/></svg> <span data-i18n="amenity_parking">Parking priv&#233;</span></div>
+        <div class="amenity-item"><svg viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1"/></svg> <span data-i18n="amenity_wifi">Wifi haut d&#233;bit</span></div>
+      </div>
+      <a href="#contact" class="btn-book-large" data-i18n="btn_book_apt">R&#233;server cet appartement</a>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ========================================
+     8. DETAIL: TERRASSE (light warm) - reversed
+     ======================================== -->
+<section class="apt-detail light-section reverse" id="detail-terrasse">
+<div class="container">
+  <div class="apt-detail-inner">
+    <div class="detail-carousel reveal" data-carousel>
+      <div class="slides">
+        <div class="slide"><img src="https://framerusercontent.com/images/h7ffYlYXsrLFHkaeTNhHIlsE0.jpeg" alt="Appartement 4"></div>
+        <div class="slide"><img src="https://framerusercontent.com/images/0ywufd5ck2I9pnabLCY4zweD8s.jpeg" alt="Appartement 4"></div>
+        <div class="slide"><img src="https://framerusercontent.com/images/vnmPu3jaYq8UpRQLEwAhgIwop7c.jpeg" alt="Appartement 4"></div>
+      </div>
+      <button class="arrow arrow-left" aria-label="Previous"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+      <button class="arrow arrow-right" aria-label="Next"><svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg></button>
+      <div class="dots"><span class="dot active"></span><span class="dot"></span><span class="dot"></span></div>
+    </div>
+    <div class="apt-detail-info reveal">
+      <p class="detail-label" data-i18n="apt_label">Collection</p>
+      <h2>Appartement 4</h2>
+      <div class="apt-specs-row">
+        <span><svg viewBox="0 0 24 24"><path d="M2 4v16h20V4H2zm0 8h20"/></svg> 1 <span data-i18n="spec_chambre">chambre</span></span>
+        <span><svg viewBox="0 0 24 24"><path d="M4 12h16M4 12a4 4 0 0 0 4 4h8a4 4 0 0 0 4-4M6 12V5a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v1"/></svg> 1 <span data-i18n="spec_sdb_full">salle de bain</span></span>
+        <span><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/></svg> 50m&#178;</span>
+      </div>
+      <div class="apt-detail-desc" data-i18n="apt_desc_full"><p>Appartement de charme &#224; Lumbarda avec terrasse privative, vue mer et acc&#232;s &#224; une piscine privée. Id&#233;al pour un s&#233;jour au calme sur l&#8217;&#238;le de Kor&#269;ula.</p><p>Situ&#233;s &#224; Lumbarda, l&#8217;un des villages les plus pris&#233;s et authentiques de l&#8217;&#238;le de Kor&#269;ula, les appartements Les Terrasses offrent un cadre de s&#233;jour paisible et privil&#233;gi&#233;, &#224; seulement quelques minutes des plages aux eaux turquoise et du centre du village.</p><p>Nich&#233;s sur les hauteurs, les appartements b&#233;n&#233;ficient d&#8217;une situation exceptionnelle avec une vue d&#233;gag&#233;e sur la marina, la baie de Lumbarda et, en arri&#232;re-plan, la montagne Saint Ilia.</p><p>Chaque appartement comprend un s&#233;jour lumineux avec cuisine moderne enti&#232;rement &#233;quip&#233;e, une chambre confortable avec salle de bain, ainsi qu&#8217;une terrasse privative. Une place de parking privative est &#233;galement incluse.</p></div>
+      <div class="amenities-grid">
+        <div class="amenity-item"><svg viewBox="0 0 24 24"><rect x="2" y="12" width="20" height="8" rx="1"/><path d="M4 12V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/></svg> <span data-i18n="amenity_terrasse">Terrasse privative</span></div>
+        <div class="amenity-item"><svg viewBox="0 0 24 24"><path d="M2 12s4-8 10-8 10 8 10 8-4 8-10 8S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg> <span data-i18n="amenity_vue">Vue mer</span></div>
+        <div class="amenity-item"><svg viewBox="0 0 24 24"><path d="M2 16c2-4 4-6 10-6s8 2 10 6"/><path d="M7 16c1-2 2.5-3 5-3s4 1 5 3"/></svg> <span data-i18n="amenity_piscine">Piscine privée de l'immeuble</span></div>
+        <div class="amenity-item"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> <span data-i18n="amenity_cuisine">Cuisine &#233;quip&#233;e</span></div>
+        <div class="amenity-item"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 12h18M12 3v18"/></svg> <span data-i18n="amenity_parking">Parking priv&#233;</span></div>
+        <div class="amenity-item"><svg viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1"/></svg> <span data-i18n="amenity_wifi">Wifi haut d&#233;bit</span></div>
+      </div>
+      <a href="#contact" class="btn-book-large" data-i18n="btn_book_apt">R&#233;server cet appartement</a>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ========================================
+     9. ABOUT / WHY (dark)
+     ======================================== -->
+<section class="about" id="about">
+<div class="container">
+  <p class="section-label reveal" data-i18n="about_label">L&#8217;exp&#233;rience</p>
+  <h2 class="section-title light reveal" data-i18n="about_title">Pourquoi Les Terrasses ?</h2>
+  <p class="section-subtitle light reveal" data-i18n="about_subtitle">Un &#233;crin de calme et de beaut&#233; sur l&#8217;&#238;le de Kor&#269;ula</p>
+  <div class="features-grid">
+    <div class="feature-card reveal reveal-delay-1">
+      <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+      <h3 data-i18n="about_f1_title">Un emplacement privil&#233;gi&#233;</h3>
+      <p data-i18n="about_f1_desc">Sur les hauteurs de Lumbarda, vue sur la marina et la baie, &#224; quelques minutes des plages cristallines</p>
+    </div>
+    <div class="feature-card reveal reveal-delay-2">
+      <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+      <h3 data-i18n="about_f2_title">Confort &amp; art de vivre</h3>
+      <p data-i18n="about_f2_desc">S&#233;jour lumineux, cuisine &#233;quip&#233;e, terrasse privative, piscine privée face &#224; la mer</p>
+    </div>
+    <div class="feature-card reveal reveal-delay-3">
+      <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <h3 data-i18n="about_f3_title">Des vacances en toute s&#233;r&#233;nit&#233;</h3>
+      <p data-i18n="about_f3_desc">M&#233;nage hebdomadaire, linge fourni, entretien piscine et jardin, parking priv&#233; inclus</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ========================================
+     9.5 LOCATION (minimalist map)
+     ======================================== -->
+<section class="location" id="location">
+<div class="container">
+  <p class="section-label reveal" data-i18n="loc_label">Localisation</p>
+  <h2 class="section-title dark reveal" data-i18n="loc_title">Où nous trouver</h2>
+  <p class="section-subtitle dark reveal" data-i18n="loc_subtitle">Au cœur de Lumbarda, sur les hauteurs face à la baie</p>
+  <div class="location-grid reveal">
+    <div class="map-wrap">
+      <div id="locationMap"></div>
+    </div>
+    <div class="location-info">
+      <div class="location-address">
+        <span class="location-address-label" data-i18n="loc_address_label">Adresse</span>
+        <p class="location-address-text">Les Terrasses de Lumbarda</p>
+        <p class="location-address-sub" data-i18n="loc_address_sub">Lumbarda 20263 · Île de Korčula · Croatie</p>
+      </div>
+      <div class="location-distances">
+        <div class="dist-item">
+          <div class="dist-icon"><svg viewBox="0 0 24 24"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z"/></svg></div>
+          <div class="dist-text">
+            <p class="dist-name" data-i18n="dist_dubrovnik">Aéroport de Dubrovnik</p>
+            <p class="dist-value" data-i18n="dist_dubrovnik_val">~120 km · 2h en voiture + ferry</p>
+          </div>
+        </div>
+        <div class="dist-item">
+          <div class="dist-icon"><svg viewBox="0 0 24 24"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z"/></svg></div>
+          <div class="dist-text">
+            <p class="dist-name" data-i18n="dist_split">Aéroport de Split</p>
+            <p class="dist-value" data-i18n="dist_split_val">~170 km · 3h en voiture + ferry</p>
+          </div>
+        </div>
+        <div class="dist-item">
+          <div class="dist-icon"><svg viewBox="0 0 24 24"><path d="M3 12s4-8 9-8 9 8 9 8-4 8-9 8-9-8-9-8z"/><circle cx="12" cy="12" r="3"/></svg></div>
+          <div class="dist-text">
+            <p class="dist-name" data-i18n="dist_beach">Plage Vela Pržina</p>
+            <p class="dist-value" data-i18n="dist_beach_val">~1,5 km · 20 min à pied</p>
+          </div>
+        </div>
+        <div class="dist-item">
+          <div class="dist-icon"><svg viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/><path d="M9 9v.01"/><path d="M9 12v.01"/><path d="M9 15v.01"/><path d="M9 18v.01"/></svg></div>
+          <div class="dist-text">
+            <p class="dist-name" data-i18n="dist_center">Centre de Lumbarda</p>
+            <p class="dist-value" data-i18n="dist_center_val">~600 m · 8 min à pied</p>
+          </div>
+        </div>
+      </div>
+      <div class="location-actions">
+        <a href="https://www.google.com/maps/dir/?api=1&destination=42.919697,17.172616" target="_blank" rel="noopener" class="btn-outline-dark" data-i18n="loc_btn_directions">Itinéraire Google Maps</a>
+        <a href="https://www.openstreetmap.org/?mlat=42.919697&mlon=17.172616#map=17/42.919697/17.172616" target="_blank" rel="noopener" class="btn-outline-dark" data-i18n="loc_btn_osm">Voir sur OpenStreetMap</a>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-close" onclick="closeLightbox()"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+  <div class="lightbox-nav lightbox-prev" onclick="lightboxNav(-1)"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></div>
+  <img id="lightboxImg" src="" alt="">
+  <div class="lightbox-nav lightbox-next" onclick="lightboxNav(1)"><svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg></div>
+</div>
+
+<!-- ========================================
+     11. FAQ (light warm)
+     ======================================== -->
+<section class="faq" id="faq">
+<div class="container">
+  <p class="section-label reveal" data-i18n="faq_label">Informations</p>
+  <h2 class="section-title dark reveal" data-i18n="faq_title">Questions fr&#233;quentes</h2>
+  <p class="section-subtitle dark reveal" data-i18n="faq_subtitle">Tout ce que vous devez savoir pour votre s&#233;jour</p>
+  <div class="faq-list">
+    <div class="faq-item reveal">
+      <div class="faq-question" onclick="toggleFaq(this)"><span data-i18n="faq_q1">Comment r&#233;server un appartement ?</span><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+      <div class="faq-answer" data-i18n="faq_a1">Vous pouvez r&#233;server directement via notre formulaire de contact ci-dessous ou sur les plateformes Booking.com et Airbnb. Nous vous recommandons de r&#233;server &#224; l&#8217;avance, surtout pour la haute saison (juin &#224; septembre).</div>
+    </div>
+    <div class="faq-item reveal">
+      <div class="faq-question" onclick="toggleFaq(this)"><span data-i18n="faq_q2">Quels sont les &#233;quipements inclus ?</span><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+      <div class="faq-answer" data-i18n="faq_a2">Chaque appartement comprend : terrasse privative avec vue mer, cuisine enti&#232;rement &#233;quip&#233;e, salle de bain moderne, wifi haut d&#233;bit, climatisation, linge de maison et serviettes. Vous avez &#233;galement acc&#232;s &#224; la piscine privée et &#224; un parking priv&#233;.</div>
+    </div>
+    <div class="faq-item reveal">
+      <div class="faq-question" onclick="toggleFaq(this)"><span data-i18n="faq_q3">Quel est le prix par nuit ?</span><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+      <div class="faq-answer" data-i18n="faq_a3">Les tarifs varient selon la saison. En basse saison &#224; partir de 90&#8364;/nuit, en moyenne saison &#224; partir de 120&#8364;/nuit, et en haute saison &#224; partir de 150&#8364;/nuit. Contactez-nous pour un devis personnalis&#233; selon vos dates.</div>
+    </div>
+    <div class="faq-item reveal">
+      <div class="faq-question" onclick="toggleFaq(this)"><span data-i18n="faq_q4">Comment se rendre &#224; Lumbarda ?</span><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+      <div class="faq-answer" data-i18n="faq_a4">Lumbarda se trouve sur l&#8217;&#238;le de Kor&#269;ula en Croatie. Vous pouvez y acc&#233;der par ferry depuis Split, Dubrovnik ou Orebi&#263;. L&#8217;a&#233;roport le plus proche est celui de Dubrovnik (2h) ou Split (3h avec ferry). Nous pouvons organiser un transfert depuis le port de Kor&#269;ula.</div>
+    </div>
+    <div class="faq-item reveal">
+      <div class="faq-question" onclick="toggleFaq(this)"><span data-i18n="faq_q5">Y a-t-il un parking ?</span><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+      <div class="faq-answer" data-i18n="faq_a5">Oui, chaque appartement dispose d&#8217;une place de parking priv&#233;e gratuite. Si vous avez besoin d&#8217;une voiture, nous pouvons &#233;galement vous aider &#224; organiser une location de v&#233;hicule sur place.</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ========================================
+     12. CONTACT (dark)
+     ======================================== -->
+<section class="contact" id="contact">
+<div class="container">
+  <p class="section-label reveal" data-i18n="contact_label">Contact</p>
+  <h2 class="section-title light reveal" data-i18n="contact_title">Contactez-nous</h2>
+  <p class="section-subtitle light reveal" data-i18n="contact_subtitle">Une question ? Envoyez-nous un message</p>
+  <div class="contact-grid">
+    <form class="contact-form reveal" onsubmit="event.preventDefault();alert('Message envoy\u00e9 !');">
+      <div class="form-row">
+        <div class="form-group"><label data-i18n="form_name">Nom complet</label><input type="text" required placeholder="Votre nom"></div>
+        <div class="form-group"><label data-i18n="form_email">Email</label><input type="email" required placeholder="votre@email.com"></div>
+      </div>
+      <div class="form-group"><label data-i18n="form_message">Message</label><textarea placeholder="Votre message..." rows="6" required></textarea></div>
+      <p class="form-hint" data-i18n="form_hint">Pour r\u00e9server, utilisez directement le bouton \u00ab R\u00e9server \u00bb sur la page de chaque appartement.</p>
+      <button type="submit" class="btn-gold" style="align-self:flex-start" data-i18n="form_submit">Envoyer le message</button>
+    </form>
+    <div class="contact-info reveal">
+      <h3 data-i18n="contact_info_title">Informations</h3>
+      <div class="contact-info-item"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Lumbarda, &#206;le de Kor&#269;ula<br>Croatie</span></div>
+      <div class="contact-info-item"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg><span>contact@lesterrasses-lumbarda.com</span></div>
+      <div class="contact-info-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span data-i18n="contact_checkin">Check-in : 15h00 - 20h00<br>Check-out : avant 10h00</span></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ========================================
+     13. FOOTER (black)
+     ======================================== -->
+<footer class="footer">
+<div class="container">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo">Les <span>Terrasses</span></div>
+      <span class="footer-tagline">Exquisite Stays</span>
+      <p data-i18n="footer_desc">Appartements de charme avec terrasse privative, vue mer et piscine privée &#224; Lumbarda, &#238;le de Kor&#269;ula.</p>
+    </div>
+    <div>
+      <h4 data-i18n="footer_links_title">Liens rapides</h4>
+      <div class="footer-links">
+        <a href="#about" data-i18n="nav_about">Pourquoi nous</a>
+        <a href="#apartments" data-i18n="nav_apartments">Appartements</a>
+        <a href="#gallery" data-i18n="nav_gallery">Galerie</a>
+        <a href="#faq" data-i18n="nav_faq">FAQ</a>
+        <a href="#contact" data-i18n="nav_contact">Contact</a>
+      </div>
+    </div>
+    <div>
+      <h4 data-i18n="footer_follow">Suivez-nous</h4>
+      <div class="footer-social">
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2025 Les Terrasses de Lumbarda. <span data-i18n="footer_rights">Tous droits r&#233;serv&#233;s.</span></p>
+  </div>
+</div>
+</footer>
+
+<script>
+/* =========================================================
+   TRANSLATIONS (FR / EN / HR / DE)
+   ========================================================= */
+var T={
+fr:{nav_about:"Pourquoi nous",nav_apartments:"Appartements",nav_gallery:"Galerie",nav_faq:"FAQ",nav_contact:"Contact",nav_cta:"R\u00e9server",nav_tagline:"Exquisite Stays",hero_title:"Les Terrasses de Lumbarda",hero_location:"Lumbarda, \u00cele de Kor\u010dula \u2014 Croatie",hero_desc:"Appartements de charme avec terrasse privative, vue mer et piscine privée",hero_cta1:"D\u00e9couvrir nos appartements",hero_cta2:"R\u00e9server maintenant",intro_quote:"Un havre de paix m\u00e9diterran\u00e9en, o\u00f9 chaque d\u00e9tail invite \u00e0 la contemplation.",intro_text:"Situ\u00e9s \u00e0 Lumbarda, l\u2019un des villages les plus pris\u00e9s et authentiques de l\u2019\u00eele de Kor\u010dula, les appartements Les Terrasses offrent un cadre de s\u00e9jour paisible et privil\u00e9gi\u00e9, \u00e0 seulement quelques minutes des plages aux eaux turquoise et du centre du village.",stat_apartments:"Appartements",stat_vue_val:"Vue Mer",stat_vue:"Panoramique",stat_piscine_val:"Piscine",stat_piscine:"Privée",stat_each:"chacun",about_label:"L\u2019exp\u00e9rience",about_title:"Pourquoi Les Terrasses ?",about_subtitle:"Un \u00e9crin de calme et de beaut\u00e9 sur l\u2019\u00eele de Kor\u010dula",about_f1_title:"Un emplacement privil\u00e9gi\u00e9",about_f1_desc:"Sur les hauteurs de Lumbarda, vue sur la marina et la baie, \u00e0 quelques minutes des plages cristallines",about_f2_title:"Confort & art de vivre",about_f2_desc:"S\u00e9jour lumineux, cuisine \u00e9quip\u00e9e, terrasse privative, piscine privée face \u00e0 la mer",about_f3_title:"Des vacances en toute s\u00e9r\u00e9nit\u00e9",about_f3_desc:"M\u00e9nage hebdomadaire, linge fourni, entretien piscine et jardin, parking priv\u00e9 inclus",apt_label:"Collection",apt_title:"Nos Appartements",apt_subtitle:"Quatre appartements de charme, chacun avec terrasse privative et vue mer",price_badge:"\u00c0 partir de 120\u20ac/nuit",spec_ch:"ch",spec_sdb:"sdb",spec_chambre:"chambre",spec_sdb_full:"salle de bain",btn_reserve:"R\u00e9server",btn_discover:"D\u00e9couvrir",btn_book_apt:"R\u00e9server cet appartement",apt_desc_full:"<p>Appartement de charme \u00e0 Lumbarda avec terrasse privative, vue mer et acc\u00e8s \u00e0 une piscine privée. Id\u00e9al pour un s\u00e9jour au calme sur l\u2019\u00eele de Kor\u010dula.</p><p>Situ\u00e9s \u00e0 Lumbarda, l\u2019un des villages les plus pris\u00e9s et authentiques de l\u2019\u00eele de Kor\u010dula, les appartements Les Terrasses offrent un cadre de s\u00e9jour paisible et privil\u00e9gi\u00e9, \u00e0 seulement quelques minutes des plages aux eaux turquoise et du centre du village.</p><p>Nich\u00e9s sur les hauteurs, les appartements b\u00e9n\u00e9ficient d\u2019une situation exceptionnelle avec une vue d\u00e9gag\u00e9e sur la marina, la baie de Lumbarda et, en arri\u00e8re-plan, la montagne Saint Ilia.</p><p>Chaque appartement comprend un s\u00e9jour lumineux avec cuisine moderne enti\u00e8rement \u00e9quip\u00e9e, une chambre confortable avec salle de bain, ainsi qu\u2019une terrasse privative. Une place de parking privative est \u00e9galement incluse.</p>",amenity_terrasse:"Terrasse privative",amenity_vue:"Vue mer",amenity_piscine:"Piscine privée de l'immeuble",amenity_cuisine:"Cuisine \u00e9quip\u00e9e",amenity_parking:"Parking priv\u00e9",amenity_wifi:"Wifi haut d\u00e9bit",gallery_label:"Galerie",gallery_title:"Galerie",gallery_subtitle:"D\u00e9couvrez Les Terrasses en images",faq_label:"Informations",faq_title:"Questions fr\u00e9quentes",faq_subtitle:"Tout ce que vous devez savoir pour votre s\u00e9jour",faq_q1:"Comment r\u00e9server un appartement ?",faq_a1:"La r\u00e9servation se fait directement sur le site : choisissez votre appartement, s\u00e9lectionnez vos dates, et finalisez votre paiement en ligne. Confirmation imm\u00e9diate par email. Nous vous recommandons de r\u00e9server \u00e0 l\u2019avance, surtout pour la haute saison (juin \u00e0 septembre).",faq_q2:"Quels sont les \u00e9quipements inclus ?",faq_a2:"Chaque appartement comprend : terrasse privative avec vue mer, cuisine enti\u00e8rement \u00e9quip\u00e9e, salle de bain moderne, wifi haut d\u00e9bit, climatisation, linge de maison et serviettes. Vous avez \u00e9galement acc\u00e8s \u00e0 la piscine privée et \u00e0 un parking priv\u00e9.",faq_q3:"Quel est le prix par nuit ?",faq_a3:"Les tarifs varient selon la saison. En basse saison \u00e0 partir de 90\u20ac/nuit, en moyenne saison \u00e0 partir de 120\u20ac/nuit, et en haute saison \u00e0 partir de 150\u20ac/nuit. Le prix exact pour vos dates s\u2019affiche automatiquement lors de la r\u00e9servation en ligne.",faq_q4:"Comment se rendre \u00e0 Lumbarda ?",faq_a4:"Lumbarda se trouve sur l\u2019\u00eele de Kor\u010dula en Croatie. Vous pouvez y acc\u00e9der par ferry depuis Split, Dubrovnik ou Orebi\u0107. L\u2019a\u00e9roport le plus proche est celui de Dubrovnik (2h) ou Split (3h avec ferry). Nous pouvons organiser un transfert depuis le port de Kor\u010dula.",faq_q5:"Y a-t-il un parking ?",faq_a5:"Oui, chaque appartement dispose d\u2019une place de parking priv\u00e9e gratuite. Si vous avez besoin d\u2019une voiture, nous pouvons \u00e9galement vous aider \u00e0 organiser une location de v\u00e9hicule sur place.",contact_label:"Contact",contact_title:"Contactez-nous",contact_subtitle:"Une question ? Envoyez-nous un message",form_name:"Nom complet",form_email:"Email",form_dates:"Dates souhait\u00e9es",form_apt:"Appartement",form_apt_placeholder:"Choisir un appartement",form_message:"Message",form_hint:"Pour réserver, utilisez directement le bouton « Réserver » sur la page de chaque appartement.",form_submit:"Envoyer le message",contact_info_title:"Informations",contact_checkin:"Check-in : 15h00 - 20h00<br>Check-out : avant 10h00",footer_desc:"Appartements de charme avec terrasse privative, vue mer et piscine privée \u00e0 Lumbarda, \u00eele de Kor\u010dula.",footer_links_title:"Liens rapides",footer_follow:"Suivez-nous",footer_rights:"Tous droits r\u00e9serv\u00e9s.",nav_location:"Localisation",loc_label:"Localisation",loc_title:"O\u00f9 nous trouver",loc_subtitle:"Au c\u0153ur de Lumbarda, sur les hauteurs face \u00e0 la baie",loc_address_label:"Adresse",loc_address_sub:"Lumbarda 20263 \u00b7 \u00cele de Kor\u010dula \u00b7 Croatie",dist_dubrovnik:"A\u00e9roport de Dubrovnik",dist_dubrovnik_val:"~120 km \u00b7 2h en voiture + ferry",dist_split:"A\u00e9roport de Split",dist_split_val:"~170 km \u00b7 3h en voiture + ferry",dist_port:"Baie de Lumbarda",dist_port_val:"~950 m \u00b7 12 min \u00e0 pied",dist_beach:"Plage Vela Pr\u017eina",dist_beach_val:"~1,3 km \u00b7 16 min \u00e0 pied",dist_center:"Centre de Lumbarda (avec plage)",dist_center_val:"~500 m \u00b7 7 min \u00e0 pied",loc_btn_directions:"Itin\u00e9raire Google Maps",loc_btn_osm:"Voir sur OpenStreetMap",brand_location:"Lumbarda · Croatie"},
+en:{nav_about:"Why us",nav_apartments:"Apartments",nav_gallery:"Gallery",nav_faq:"FAQ",nav_contact:"Contact",nav_cta:"Book now",nav_tagline:"Exquisite Stays",hero_title:"Les Terrasses de Lumbarda",hero_location:"Lumbarda, Island of Kor\u010dula \u2014 Croatia",hero_desc:"Charming apartments with private terrace, sea view and building's private pool",hero_cta1:"Discover our apartments",hero_cta2:"Book now",intro_quote:"A Mediterranean haven of peace, where every detail invites contemplation.",intro_text:"Located in Lumbarda, one of the most sought-after and authentic villages on the island of Kor\u010dula, Les Terrasses apartments offer a peaceful and privileged setting, just minutes from turquoise beaches and the village center.",stat_apartments:"Apartments",stat_vue_val:"Sea View",stat_vue:"Panoramic",stat_piscine_val:"Pool",stat_piscine:"Private",stat_each:"each",about_label:"The experience",about_title:"Why Les Terrasses?",about_subtitle:"A haven of peace and beauty on the island of Kor\u010dula",about_f1_title:"A prime location",about_f1_desc:"On the heights of Lumbarda, overlooking the marina and bay, just minutes from crystal-clear beaches",about_f2_title:"Comfort & lifestyle",about_f2_desc:"Bright living area, equipped kitchen, private terrace, building's private pool facing the sea",about_f3_title:"Stress-free holidays",about_f3_desc:"Weekly cleaning, linen provided, pool and garden maintenance, private parking included",apt_label:"Collection",apt_title:"Our Apartments",apt_subtitle:"Four charming apartments, each with private terrace and sea view",price_badge:"From \u20ac120/night",spec_ch:"bed",spec_sdb:"bath",spec_chambre:"bedroom",spec_sdb_full:"bathroom",btn_reserve:"Book",btn_discover:"Discover",btn_book_apt:"Book this apartment",apt_desc_full:"<p>Charming apartment in Lumbarda with private terrace, sea view and access to a building's private pool. Perfect for a peaceful stay on the island of Kor\u010dula.</p><p>Located in Lumbarda, one of the most sought-after and authentic villages on the island of Kor\u010dula, Les Terrasses apartments offer a peaceful and privileged setting, just minutes from turquoise beaches and the village center.</p><p>Perched on the heights, the apartments enjoy an exceptional location with open views of the marina, Lumbarda bay and, in the background, Mount Saint Ilia.</p><p>Each apartment includes a bright living room with a fully equipped modern kitchen, a comfortable bedroom with bathroom, and a private terrace. A private parking space is also included.</p>",amenity_terrasse:"Private terrace",amenity_vue:"Sea view",amenity_piscine:"Building's private pool",amenity_cuisine:"Equipped kitchen",amenity_parking:"Private parking",amenity_wifi:"High-speed Wifi",gallery_label:"Gallery",gallery_title:"Gallery",gallery_subtitle:"Discover Les Terrasses in pictures",faq_label:"Information",faq_title:"Frequently Asked Questions",faq_subtitle:"Everything you need to know for your stay",faq_q1:"How do I book an apartment?",faq_a1:"Booking is done directly on the website: choose your apartment, select your dates, and complete your payment online. Instant confirmation by email. We recommend booking in advance, especially for high season (June to September).",faq_q2:"What amenities are included?",faq_a2:"Each apartment includes: private terrace with sea view, fully equipped kitchen, modern bathroom, high-speed wifi, air conditioning, household linen and towels. You also have access to the building's private pool and private parking.",faq_q3:"What is the price per night?",faq_a3:"Rates vary by season. Low season from \u20ac90/night, mid-season from \u20ac120/night, and high season from \u20ac150/night. The exact price for your dates is shown automatically during the online booking process.",faq_q4:"How do I get to Lumbarda?",faq_a4:"Lumbarda is on the island of Kor\u010dula in Croatia. You can get there by ferry from Split, Dubrovnik or Orebi\u0107. The nearest airport is Dubrovnik (2h) or Split (3h with ferry). We can arrange a transfer from the port of Kor\u010dula.",faq_q5:"Is there parking?",faq_a5:"Yes, each apartment has a free private parking space. If you need a car, we can also help arrange a vehicle rental on site.",contact_label:"Contact",contact_title:"Contact us",contact_subtitle:"Have a question? Send us a message",form_name:"Full name",form_email:"Email",form_dates:"Desired dates",form_apt:"Apartment",form_apt_placeholder:"Choose an apartment",form_message:"Message",form_hint:"To book, use the “Book” button directly on each apartment’s page.",form_submit:"Send message",contact_info_title:"Information",contact_checkin:"Check-in: 3:00 PM - 8:00 PM<br>Check-out: before 10:00 AM",footer_desc:"Charming apartments with private terrace, sea view and building's private pool in Lumbarda, island of Kor\u010dula.",footer_links_title:"Quick links",footer_follow:"Follow us",footer_rights:"All rights reserved.",nav_location:"Location",loc_label:"Location",loc_title:"Where to find us",loc_subtitle:"In the heart of Lumbarda, on the heights overlooking the bay",loc_address_label:"Address",loc_address_sub:"Lumbarda 20263 · Island of Korčula · Croatia",dist_dubrovnik:"Dubrovnik Airport",dist_dubrovnik_val:"~120 km · 2h by car + ferry",dist_split:"Split Airport",dist_split_val:"~170 km · 3h by car + ferry",dist_port:"Lumbarda Bay",dist_port_val:"~950 m · 12 min walk",dist_beach:"Vela Pržina Beach",dist_beach_val:"~1.3 km · 16 min walk",dist_center:"Lumbarda center (with beach)",dist_center_val:"~500 m · 7 min walk",loc_btn_directions:"Google Maps directions",loc_btn_osm:"View on OpenStreetMap",brand_location:"Lumbarda · Croatia"},
+hr:{nav_about:"Za\u0161to mi",nav_apartments:"Apartmani",nav_gallery:"Galerija",nav_faq:"FAQ",nav_contact:"Kontakt",nav_cta:"Rezerviraj",nav_tagline:"Exquisite Stays",hero_title:"Les Terrasses de Lumbarda",hero_location:"Lumbarda, Otok Kor\u010dula \u2014 Hrvatska",hero_desc:"\u0160armantni apartmani s privatnom terasom, pogledom na more i zajedni\u010dkim bazenom",hero_cta1:"Otkrijte na\u0161e apartmane",hero_cta2:"Rezervirajte sada",intro_quote:"Mediteranski raj mira, gdje svaki detalj poziva na kontemplaciju.",intro_text:"Smje\u0161teni u Lumbardi, jednom od najtra\u017eenijih i najautenti\u010dnijih sela na otoku Kor\u010duli, apartmani Les Terrasses nude miran i privilegiran ambijent, samo nekoliko minuta od pla\u017ea s tirkiznom vodom i centra sela.",stat_apartments:"Apartmani",stat_vue_val:"Pogled",stat_vue:"Na more",stat_piscine_val:"Bazen",stat_piscine:"Privatni",stat_each:"svaki",about_label:"Iskustvo",about_title:"Za\u0161to Les Terrasses?",about_subtitle:"Oaza mira i ljepote na otoku Kor\u010duli",about_f1_title:"Privilegirani polo\u017eaj",about_f1_desc:"Na uzvisini Lumbarde, s pogledom na marinu i zaljev, samo nekoliko minuta od kristalno \u010distih pla\u017ea",about_f2_title:"Udobnost i stil \u017eivota",about_f2_desc:"Svijetli dnevni boravak, opremljena kuhinja, privatna terasa, privatni bazen s pogledom na more",about_f3_title:"Odmor bez briga",about_f3_desc:"Tjedno \u010di\u0161\u0107enje, posteljina uklju\u010dena, odr\u017eavanje bazena i vrta, privatni parking uklju\u010den",apt_label:"Kolekcija",apt_title:"Na\u0161i apartmani",apt_subtitle:"\u010cetiri \u0161armantna apartmana, svaki s privatnom terasom i pogledom na more",price_badge:"Od 120\u20ac/no\u0107",spec_ch:"spav",spec_sdb:"kup",spec_chambre:"spava\u0107a soba",spec_sdb_full:"kupaonica",btn_reserve:"Rezerviraj",btn_discover:"Otkrijte",btn_book_apt:"Rezervirajte ovaj apartman",apt_desc_full:"<p>\u0160armantan apartman u Lumbardi s privatnom terasom, pogledom na more i pristupom zajedni\u010dkom bazenu. Idealan za miran boravak na otoku Kor\u010duli.</p><p>Smje\u0161teni u Lumbardi, jednom od najtra\u017eenijih i najautenti\u010dnijih sela na otoku Kor\u010duli, apartmani Les Terrasses nude miran i privilegiran ambijent, samo nekoliko minuta od pla\u017ea s tirkiznom vodom i centra sela.</p><p>Smje\u0161teni na uzvisini, apartmani u\u017eivaju izniman polo\u017eaj s otvorenim pogledom na marinu, zaljev Lumbarde i, u pozadini, planinu Sveti Ilija.</p><p>Svaki apartman uklju\u010duje svijetli dnevni boravak s potpuno opremljenom modernom kuhinjom, udobnu spava\u0107u sobu s kupaonicom te privatnu terasu. Privatno parkirno mjesto tako\u0111er je uklju\u010deno.</p>",amenity_terrasse:"Privatna terasa",amenity_vue:"Pogled na more",amenity_piscine:"Privatni bazen zgrade",amenity_cuisine:"Opremljena kuhinja",amenity_parking:"Privatni parking",amenity_wifi:"Brzi Wifi",gallery_label:"Galerija",gallery_title:"Galerija",gallery_subtitle:"Otkrijte Les Terrasses u slikama",faq_label:"Informacije",faq_title:"\u010cesta pitanja",faq_subtitle:"Sve \u0161to trebate znati za svoj boravak",faq_q1:"Kako rezervirati apartman?",faq_a1:"Rezervacija se obavlja izravno na web stranici: odaberite svoj apartman, datume i zavr\u0161ite pla\u0107anje online. Trenutna potvrda putem e-maila. Preporu\u010damo rezervaciju unaprijed, osobito za visoku sezonu (lipanj do rujan).",faq_q2:"Koji su sadr\u017eaji uklju\u010deni?",faq_a2:"Svaki apartman uklju\u010duje: privatnu terasu s pogledom na more, potpuno opremljenu kuhinju, modernu kupaonicu, brzi wifi, klimu, posteljinu i ru\u010dnike. Tako\u0111er imate pristup zajedni\u010dkom bazenu i privatnom parkingu.",faq_q3:"Koja je cijena po no\u0107enju?",faq_a3:"Cijene variraju prema sezoni. U niskoj sezoni od 90\u20ac/no\u0107, u srednjoj sezoni od 120\u20ac/no\u0107, a u visokoj sezoni od 150\u20ac/no\u0107. To\u010dna cijena za va\u0161e datume prikazuje se automatski tijekom online rezervacije.",faq_q4:"Kako do\u0107i do Lumbarde?",faq_a4:"Lumbarda se nalazi na otoku Kor\u010duli u Hrvatskoj. Mo\u017eete do\u0107i trajektom iz Splita, Dubrovnika ili Orebi\u0107a. Najbli\u017ea zra\u010dna luka je Dubrovnik (2h) ili Split (3h s trajektom). Mo\u017eemo organizirati transfer iz luke Kor\u010dula.",faq_q5:"Ima li parking?",faq_a5:"Da, svaki apartman ima besplatno privatno parkirno mjesto. Ako trebate automobil, mo\u017eemo vam tako\u0111er pomo\u0107i organizirati najam vozila na licu mjesta.",contact_label:"Kontakt",contact_title:"Kontaktirajte nas",contact_subtitle:"Imate pitanje? Po\u0161aljite nam poruku",form_name:"Puno ime",form_email:"Email",form_dates:"\u017deljeni datumi",form_apt:"Apartman",form_apt_placeholder:"Odaberite apartman",form_message:"Poruka",form_hint:"Za rezervaciju koristite gumb \u201eRezerviraj\u201c izravno na stranici svakog apartmana.",form_submit:"Po\u0161alji poruku",contact_info_title:"Informacije",contact_checkin:"Prijava: 15:00 - 20:00<br>Odjava: prije 10:00",footer_desc:"\u0160armantni apartmani s privatnom terasom, pogledom na more i zajedni\u010dkim bazenom u Lumbardi, otok Kor\u010dula.",footer_links_title:"Brzi linkovi",footer_follow:"Pratite nas",footer_rights:"Sva prava pridr\u017eana.",nav_location:"Lokacija",loc_label:"Lokacija",loc_title:"Gdje nas prona\u0107i",loc_subtitle:"U srcu Lumbarde, na uzvisini s pogledom na zaljev",loc_address_label:"Adresa",loc_address_sub:"Lumbarda 20263 \u00b7 Otok Kor\u010dula \u00b7 Hrvatska",dist_dubrovnik:"Zra\u010dna luka Dubrovnik",dist_dubrovnik_val:"~120 km \u00b7 2h autom + trajekt",dist_split:"Zra\u010dna luka Split",dist_split_val:"~170 km \u00b7 3h autom + trajekt",dist_port:"Uvala Lumbarda",dist_port_val:"~950 m \u00b7 12 min hoda",dist_beach:"Pla\u017ea Vela Pr\u017eina",dist_beach_val:"~1,3 km \u00b7 16 min hoda",dist_center:"Centar Lumbarde (s pla\u017eom)",dist_center_val:"~500 m \u00b7 7 min hoda",loc_btn_directions:"Upute Google Maps",loc_btn_osm:"Pogledaj na OpenStreetMap",brand_location:"Lumbarda · Hrvatska"},
+it:{nav_about:"Perché noi",nav_apartments:"Appartamenti",nav_gallery:"Galleria",nav_faq:"FAQ",nav_contact:"Contatti",nav_cta:"Prenota",nav_tagline:"Exquisite Stays",hero_title:"Les Terrasses de Lumbarda",hero_location:"Lumbarda, Isola di Korčula — Croazia",hero_desc:"Appartamenti di charme con terrazza privata, vista mare e piscina privata",hero_cta1:"Scopri i nostri appartamenti",hero_cta2:"Prenota ora",intro_quote:"Un'oasi di pace mediterranea, dove ogni dettaglio invita alla contemplazione.",intro_text:"Situati a Lumbarda, uno dei villaggi più ricercati e autentici dell'isola di Korčula, gli appartamenti Les Terrasses offrono una cornice di soggiorno tranquilla e privilegiata, a soli pochi minuti dalle spiagge dalle acque turchesi e dal centro del villaggio.",stat_apartments:"Appartamenti",stat_vue_val:"Vista mare",stat_vue:"Panoramica",stat_piscine_val:"Piscina",stat_piscine:"Privata",stat_each:"ciascuno",about_label:"L'esperienza",about_title:"Perché Les Terrasses?",about_subtitle:"Un'oasi di calma e bellezza sull'isola di Korčula",about_f1_title:"Una posizione privilegiata",about_f1_desc:"Sulle alture di Lumbarda, con vista sul porto e sulla baia, a pochi minuti dalle spiagge cristalline",about_f2_title:"Comfort e arte di vivere",about_f2_desc:"Soggiorno luminoso, cucina attrezzata, terrazza privata, piscina privata fronte mare",about_f3_title:"Vacanze in tutta serenità",about_f3_desc:"Pulizie settimanali, biancheria fornita, manutenzione piscina e giardino, parcheggio privato incluso",apt_label:"Collezione",apt_title:"I nostri appartamenti",apt_subtitle:"Quattro appartamenti di charme, ciascuno con terrazza privata e vista mare",price_badge:"Da 120€/notte",spec_ch:"cam",spec_sdb:"bagno",spec_chambre:"camera",spec_sdb_full:"bagno",btn_reserve:"Prenota",btn_discover:"Scopri",btn_book_apt:"Prenota questo appartamento",apt_desc_full:"<p>Appartamento di charme a Lumbarda con terrazza privata, vista mare e accesso a una piscina privata. Ideale per un soggiorno tranquillo sull'isola di Korčula.</p><p>Situati a Lumbarda, uno dei villaggi più ricercati e autentici dell'isola di Korčula, gli appartamenti Les Terrasses offrono una cornice di soggiorno tranquilla e privilegiata, a soli pochi minuti dalle spiagge dalle acque turchesi e dal centro del villaggio.</p><p>Posizionati sulle alture, gli appartamenti godono di una posizione eccezionale con vista aperta sul porto, sulla baia di Lumbarda e, sullo sfondo, sul monte Sant'Elia.</p><p>Ogni appartamento comprende un soggiorno luminoso con cucina moderna completamente attrezzata, una camera confortevole con bagno e una terrazza privata. È inclusa anche una piazzola di parcheggio privata.</p>",amenity_terrasse:"Terrazza privata",amenity_vue:"Vista mare",amenity_piscine:"Piscina privata della residenza",amenity_cuisine:"Cucina attrezzata",amenity_parking:"Parcheggio privato",amenity_wifi:"Wifi ad alta velocità",gallery_label:"Galleria",gallery_title:"Galleria",gallery_subtitle:"Scoprite Les Terrasses in immagini",faq_label:"Informazioni",faq_title:"Domande frequenti",faq_subtitle:"Tutto quello che dovete sapere per il vostro soggiorno",faq_q1:"Come prenotare un appartamento?",faq_a1:"La prenotazione si effettua direttamente sul sito: scegliete il vostro appartamento, selezionate le date e finalizzate il pagamento online. Conferma immediata via email. Vi consigliamo di prenotare in anticipo, soprattutto per l'alta stagione (giugno a settembre).",faq_q2:"Quali servizi sono inclusi?",faq_a2:"Ogni appartamento include: terrazza privata con vista mare, cucina completamente attrezzata, bagno moderno, wifi ad alta velocità, aria condizionata, biancheria e asciugamani. Avete inoltre accesso alla piscina privata e a un parcheggio privato.",faq_q3:"Qual è il prezzo per notte?",faq_a3:"Le tariffe variano a seconda della stagione. In bassa stagione da 90€/notte, in media stagione da 120€/notte e in alta stagione da 150€/notte. Il prezzo esatto per le vostre date viene visualizzato automaticamente durante la prenotazione online.",faq_q4:"Come arrivare a Lumbarda?",faq_a4:"Lumbarda si trova sull'isola di Korčula in Croazia. Potete arrivarci in traghetto da Spalato, Dubrovnik o Orebić. L'aeroporto più vicino è Dubrovnik (2h) o Spalato (3h con traghetto). Possiamo organizzare un trasferimento dal porto di Korčula.",faq_q5:"C'è un parcheggio?",faq_a5:"Sì, ogni appartamento dispone di un posto auto privato gratuito. Se avete bisogno di un'auto, possiamo anche aiutarvi a organizzare un noleggio sul posto.",contact_label:"Contatti",contact_title:"Contattateci",contact_subtitle:"Avete una domanda? Inviateci un messaggio",form_name:"Nome completo",form_email:"Email",form_dates:"Date desiderate",form_apt:"Appartamento",form_apt_placeholder:"Scegliere un appartamento",form_message:"Messaggio",form_hint:"Per prenotare, utilizzate direttamente il pulsante «Prenota» sulla pagina di ciascun appartamento.",form_submit:"Invia messaggio",contact_info_title:"Informazioni",contact_checkin:"Check-in: 15:00 - 20:00<br>Check-out: prima delle 10:00",footer_desc:"Appartamenti di charme con terrazza privata, vista mare e piscina privata a Lumbarda, isola di Korčula.",footer_links_title:"Link rapidi",footer_follow:"Seguiteci",footer_rights:"Tutti i diritti riservati.",nav_location:"Posizione",loc_label:"Posizione",loc_title:"Dove trovarci",loc_subtitle:"Nel cuore di Lumbarda, sulle alture di fronte alla baia",loc_address_label:"Indirizzo",loc_address_sub:"Lumbarda 20263 · Isola di Korčula · Croazia",dist_dubrovnik:"Aeroporto di Dubrovnik",dist_dubrovnik_val:"~120 km · 2h in auto + traghetto",dist_split:"Aeroporto di Spalato",dist_split_val:"~170 km · 3h in auto + traghetto",dist_port:"Baia di Lumbarda",dist_port_val:"~950 m · 12 min a piedi",dist_beach:"Spiaggia Vela Pržina",dist_beach_val:"~1,3 km · 16 min a piedi",dist_center:"Centro di Lumbarda (con spiaggia)",dist_center_val:"~500 m · 7 min a piedi",loc_btn_directions:"Itinerario Google Maps",loc_btn_osm:"Vedi su OpenStreetMap",brand_location:"Lumbarda · Croazia"},
+de:{nav_about:"Warum wir",nav_apartments:"Apartments",nav_gallery:"Galerie",nav_faq:"FAQ",nav_contact:"Kontakt",nav_cta:"Buchen",nav_tagline:"Exquisite Stays",hero_title:"Les Terrasses de Lumbarda",hero_location:"Lumbarda, Insel Kor\u010dula \u2014 Kroatien",hero_desc:"Charmante Apartments mit privater Terrasse, Meerblick und Privater Pool der Residenz",hero_cta1:"Unsere Apartments entdecken",hero_cta2:"Jetzt buchen",intro_quote:"Eine mediterrane Oase des Friedens, in der jedes Detail zur Kontemplation einl\u00e4dt.",intro_text:"Die Apartments Les Terrasses befinden sich in Lumbarda, einem der beliebtesten und authentischsten D\u00f6rfer der Insel Kor\u010dula, und bieten eine ruhige und privilegierte Umgebung, nur wenige Minuten von t\u00fcrkisfarbenen Str\u00e4nden und dem Dorfzentrum entfernt.",stat_apartments:"Apartments",stat_vue_val:"Meerblick",stat_vue:"Panorama",stat_piscine_val:"Pool",stat_piscine:"Privat",stat_each:"jeweils",about_label:"Das Erlebnis",about_title:"Warum Les Terrasses?",about_subtitle:"Eine Oase der Ruhe und Sch\u00f6nheit auf der Insel Kor\u010dula",about_f1_title:"Erstklassige Lage",about_f1_desc:"Auf den H\u00f6hen von Lumbarda, mit Blick auf den Yachthafen und die Bucht, nur wenige Minuten von kristallklaren Str\u00e4nden entfernt",about_f2_title:"Komfort & Lebensart",about_f2_desc:"Heller Wohnbereich, ausgestattete K\u00fcche, private Terrasse, Privater Pool der Residenz mit Meerblick",about_f3_title:"Sorgenfreier Urlaub",about_f3_desc:"W\u00f6chentliche Reinigung, W\u00e4sche inklusive, Pool- und Gartenpflege, privater Parkplatz inklusive",apt_label:"Kollektion",apt_title:"Unsere Apartments",apt_subtitle:"Vier charmante Apartments, jedes mit privater Terrasse und Meerblick",price_badge:"Ab 120\u20ac/Nacht",spec_ch:"Schlafz",spec_sdb:"Bad",spec_chambre:"Schlafzimmer",spec_sdb_full:"Badezimmer",btn_reserve:"Buchen",btn_discover:"Entdecken",btn_book_apt:"Dieses Apartment buchen",apt_desc_full:"<p>Charmantes Apartment in Lumbarda mit privater Terrasse, Meerblick und Zugang zum Privater Pool der Residenz. Ideal f\u00fcr einen ruhigen Aufenthalt auf der Insel Kor\u010dula.</p><p>Die Apartments Les Terrasses befinden sich in Lumbarda, einem der beliebtesten und authentischsten D\u00f6rfer der Insel Kor\u010dula, und bieten eine ruhige und privilegierte Umgebung, nur wenige Minuten von t\u00fcrkisfarbenen Str\u00e4nden und dem Dorfzentrum entfernt.</p><p>Auf den H\u00f6hen gelegen, genie\u00dfen die Apartments eine au\u00dfergew\u00f6hnliche Lage mit freiem Blick auf den Yachthafen, die Bucht von Lumbarda und im Hintergrund den Berg Saint Ilia.</p><p>Jedes Apartment umfasst einen hellen Wohnbereich mit voll ausgestatteter moderner K\u00fcche, ein gem\u00fctliches Schlafzimmer mit Bad sowie eine private Terrasse. Ein privater Parkplatz ist ebenfalls inbegriffen.</p>",amenity_terrasse:"Private Terrasse",amenity_vue:"Meerblick",amenity_piscine:"Privater Pool der Residenz",amenity_cuisine:"Ausgestattete K\u00fcche",amenity_parking:"Privater Parkplatz",amenity_wifi:"Schnelles WLAN",gallery_label:"Galerie",gallery_title:"Galerie",gallery_subtitle:"Entdecken Sie Les Terrasses in Bildern",faq_label:"Informationen",faq_title:"H\u00e4ufig gestellte Fragen",faq_subtitle:"Alles, was Sie f\u00fcr Ihren Aufenthalt wissen m\u00fcssen",faq_q1:"Wie buche ich ein Apartment?",faq_a1:"Die Buchung erfolgt direkt auf der Website: w\u00e4hlen Sie Ihr Apartment, Ihre Daten und schlie\u00dfen Sie die Zahlung online ab. Sofortige Best\u00e4tigung per E-Mail. Wir empfehlen eine fr\u00fchzeitige Buchung, besonders f\u00fcr die Hochsaison (Juni bis September).",faq_q2:"Welche Ausstattung ist enthalten?",faq_a2:"Jedes Apartment umfasst: private Terrasse mit Meerblick, voll ausgestattete K\u00fcche, modernes Bad, schnelles WLAN, Klimaanlage, Bettw\u00e4sche und Handt\u00fccher. Zugang zum Privater Pool der Residenz und privatem Parkplatz inklusive.",faq_q3:"Was kostet eine Nacht?",faq_a3:"Die Preise variieren je nach Saison. Nebensaison ab 90\u20ac/Nacht, Zwischensaison ab 120\u20ac/Nacht, Hochsaison ab 150\u20ac/Nacht. Der genaue Preis f\u00fcr Ihre Daten wird automatisch w\u00e4hrend des Online-Buchungsvorgangs angezeigt.",faq_q4:"Wie komme ich nach Lumbarda?",faq_a4:"Lumbarda liegt auf der Insel Kor\u010dula in Kroatien. Sie erreichen es per F\u00e4hre von Split, Dubrovnik oder Orebi\u0107. Der n\u00e4chste Flughafen ist Dubrovnik (2h) oder Split (3h mit F\u00e4hre). Wir k\u00f6nnen einen Transfer vom Hafen Kor\u010dula organisieren.",faq_q5:"Gibt es einen Parkplatz?",faq_a5:"Ja, jedes Apartment verf\u00fcgt \u00fcber einen kostenlosen privaten Parkplatz. Wenn Sie ein Auto ben\u00f6tigen, helfen wir gerne bei der Organisation einer Fahrzeugmiete vor Ort.",contact_label:"Kontakt",contact_title:"Kontaktieren Sie uns",contact_subtitle:"Haben Sie eine Frage? Schreiben Sie uns",form_name:"Vollst\u00e4ndiger Name",form_email:"E-Mail",form_dates:"Gew\u00fcnschte Daten",form_apt:"Apartment",form_apt_placeholder:"Apartment w\u00e4hlen",form_message:"Nachricht",form_hint:"Um zu buchen, nutzen Sie direkt die Schaltfläche „Buchen“ auf der Seite des jeweiligen Apartments.",form_submit:"Nachricht senden",contact_info_title:"Informationen",contact_checkin:"Check-in: 15:00 - 20:00<br>Check-out: vor 10:00",footer_desc:"Charmante Apartments mit privater Terrasse, Meerblick und Privater Pool der Residenz in Lumbarda, Insel Kor\u010dula.",footer_links_title:"Schnelllinks",footer_follow:"Folgen Sie uns",footer_rights:"Alle Rechte vorbehalten.",nav_location:"Lage",loc_label:"Lage",loc_title:"So finden Sie uns",loc_subtitle:"Im Herzen von Lumbarda, auf den Höhen mit Blick auf die Bucht",loc_address_label:"Adresse",loc_address_sub:"Lumbarda 20263 · Insel Korčula · Kroatien",dist_dubrovnik:"Flughafen Dubrovnik",dist_dubrovnik_val:"~120 km · 2h mit Auto + Fähre",dist_split:"Flughafen Split",dist_split_val:"~170 km · 3h mit Auto + Fähre",dist_port:"Bucht von Lumbarda",dist_port_val:"~950 m · 12 Min. zu Fuß",dist_beach:"Strand Vela Pržina",dist_beach_val:"~1,3 km · 16 Min. zu Fuß",dist_center:"Zentrum Lumbarda (mit Strand)",dist_center_val:"~500 m · 7 Min. zu Fuß",loc_btn_directions:"Route mit Google Maps",loc_btn_osm:"Auf OpenStreetMap ansehen",brand_location:"Lumbarda · Kroatien"}
+};
+
+var currentLang='fr';
+var htmlKeys=['apt_desc_full','contact_checkin','faq_a1','faq_a2','faq_a3','faq_a4','faq_a5'];
+
+function setLanguage(lang){
+  currentLang=lang;
+  document.documentElement.lang=lang;
+  var dict=T[lang];if(!dict)return;
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    var key=el.getAttribute('data-i18n');
+    if(dict[key]!==undefined){
+      if(htmlKeys.indexOf(key)!==-1){el.innerHTML=dict[key]}
+      else{el.textContent=dict[key]}
+    }
+  });
+  document.querySelectorAll('.lang-btn').forEach(function(b){
+    b.classList.toggle('active',b.getAttribute('data-lang')===lang);
+  });
+}
+
+/* =========================================================
+   NAVBAR SCROLL
+   ========================================================= */
+var navbar=document.getElementById('navbar');
+function onScroll(){navbar.classList.toggle('scrolled',window.scrollY>80)}
+window.addEventListener('scroll',onScroll,{passive:true});
+onScroll();
+
+/* =========================================================
+   MOBILE MENU
+   ========================================================= */
+var hamburger=document.getElementById('hamburger');
+var mobileNav=document.getElementById('mobileNav');
+hamburger.addEventListener('click',function(){
+  hamburger.classList.toggle('active');
+  mobileNav.classList.toggle('active');
+  document.body.style.overflow=mobileNav.classList.contains('active')?'hidden':'';
+});
+function closeMobile(){
+  hamburger.classList.remove('active');
+  mobileNav.classList.remove('active');
+  document.body.style.overflow='';
+}
+
+/* =========================================================
+   LANGUAGE SWITCHER
+   ========================================================= */
+document.addEventListener('click',function(e){
+  if(e.target.classList.contains('lang-btn')){
+    setLanguage(e.target.getAttribute('data-lang'));
+  }
+});
+
+/* =========================================================
+   CAROUSELS (card + detail)
+   ========================================================= */
+document.querySelectorAll('[data-carousel]').forEach(function(carousel){
+  var slides=carousel.querySelector('.slides');
+  var total=slides.children.length;
+  var dots=carousel.querySelectorAll('.dot');
+  var idx=0;
+  function goTo(i){
+    idx=((i%total)+total)%total;
+    slides.style.transform='translateX(-'+idx*100+'%)';
+    dots.forEach(function(d,j){d.classList.toggle('active',j===idx)});
+  }
+  carousel.querySelector('.arrow-left').addEventListener('click',function(e){e.stopPropagation();goTo(idx-1)});
+  carousel.querySelector('.arrow-right').addEventListener('click',function(e){e.stopPropagation();goTo(idx+1)});
+  dots.forEach(function(d,j){d.addEventListener('click',function(e){e.stopPropagation();goTo(j)})});
+  /* Touch swipe */
+  var startX=0;
+  carousel.addEventListener('touchstart',function(e){startX=e.touches[0].clientX},{passive:true});
+  carousel.addEventListener('touchend',function(e){
+    var diff=startX-e.changedTouches[0].clientX;
+    if(Math.abs(diff)>40)goTo(diff>0?idx+1:idx-1);
+  },{passive:true});
+});
+
+/* =========================================================
+   GALLERY LIGHTBOX
+   ========================================================= */
+var galleryItems=document.querySelectorAll('[data-gallery]');
+var lightbox=document.getElementById('lightbox');
+var lightboxImg=document.getElementById('lightboxImg');
+var lbIndex=0;var lbSrcs=[];
+galleryItems.forEach(function(item,i){
+  var src=item.querySelector('img').src;
+  lbSrcs.push(src);
+  item.addEventListener('click',function(){
+    lbIndex=i;lightboxImg.src=src;
+    lightbox.classList.add('active');
+    document.body.style.overflow='hidden';
+  });
+});
+function closeLightbox(){lightbox.classList.remove('active');document.body.style.overflow=''}
+function lightboxNav(dir){
+  lbIndex=((lbIndex+dir)%lbSrcs.length+lbSrcs.length)%lbSrcs.length;
+  lightboxImg.src=lbSrcs[lbIndex];
+}
+lightbox.addEventListener('click',function(e){if(e.target===lightbox)closeLightbox()});
+document.addEventListener('keydown',function(e){
+  if(!lightbox.classList.contains('active'))return;
+  if(e.key==='Escape')closeLightbox();
+  if(e.key==='ArrowLeft')lightboxNav(-1);
+  if(e.key==='ArrowRight')lightboxNav(1);
+});
+
+/* =========================================================
+   FAQ ACCORDION
+   ========================================================= */
+function toggleFaq(el){
+  var item=el.closest('.faq-item');
+  var wasOpen=item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(function(i){i.classList.remove('open')});
+  if(!wasOpen)item.classList.add('open');
+}
+
+/* =========================================================
+   REVEAL ANIMATIONS (IntersectionObserver + fallback)
+   ========================================================= */
+(function(){
+  var reveals=document.querySelectorAll('.reveal');
+  if(!('IntersectionObserver' in window)){
+    reveals.forEach(function(el){el.classList.add('visible')});return;
+  }
+  var observer=new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){entry.target.classList.add('visible');observer.unobserve(entry.target)}
+    });
+  },{threshold:0.01,rootMargin:'0px 0px -30px 0px'});
+  reveals.forEach(function(el){observer.observe(el)});
+
+  /* Fallback: make ALL elements visible after 2s to avoid stuck invisible content */
+  setTimeout(function(){
+    reveals.forEach(function(el){
+      if(!el.classList.contains('visible')){
+        el.classList.add('visible');
+      }
+    });
+  },2000);
+
+  /* Scroll-based fallback for elements near viewport */
+  window.addEventListener('scroll',function(){
+    reveals.forEach(function(el){
+      if(!el.classList.contains('visible')){
+        var r=el.getBoundingClientRect();
+        if(r.top<window.innerHeight+60)el.classList.add('visible');
+      }
+    });
+  },{passive:true});
+})();
+
+/* =========================================================
+   ANIMATED COUNTERS
+   ========================================================= */
+(function(){
+  var counters=document.querySelectorAll('[data-count]');
+  var animated=new Set();
+  function animateCounter(el){
+    if(animated.has(el))return;
+    animated.add(el);
+    var target=parseInt(el.getAttribute('data-count'),10);
+    var current=0;
+    var step=Math.max(1,Math.floor(target/40));
+    var interval=setInterval(function(){
+      current+=step;
+      if(current>=target){current=target;clearInterval(interval)}
+      el.textContent=current;
+    },30);
+  }
+  if('IntersectionObserver' in window){
+    var obs=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting)animateCounter(e.target);
+      });
+    },{threshold:0.3});
+    counters.forEach(function(c){obs.observe(c)});
+  } else {
+    counters.forEach(animateCounter);
+  }
+})();
+
+/* =========================================================
+   SMOOTH SCROLL
+   ========================================================= */
+document.querySelectorAll('a[href^="#"]').forEach(function(a){
+  a.addEventListener('click',function(e){
+    var href=a.getAttribute('href');
+    if(href==='#')return;
+    var target=document.querySelector(href);
+    if(target){
+      e.preventDefault();
+      var top=target.getBoundingClientRect().top+window.scrollY-80;
+      window.scrollTo({top:top,behavior:'smooth'});
+      closeMobile();
+    }
+  });
+});
+
+/* =========================================================
+   HERO VIDEO FALLBACK + PARALLAX
+   ========================================================= */
+(function(){
+  var heroVideo=document.getElementById('heroVideo');
+  if(!heroVideo)return;
+
+  /* Fallback: if primary video fails, try alternative */
+  heroVideo.addEventListener('error',function(){
+    var altSrc='https://cdn.pixabay.com/video/2024/03/15/204420-923590044_large.mp4';
+    if(heroVideo.querySelector('source').src!==altSrc){
+      heroVideo.querySelector('source').src=altSrc;
+      heroVideo.load();
+    }
+  },true);
+
+  /* Ken Burns animation handled by CSS (.hero-bg video) — no JS parallax to avoid transform conflict */
+})();
+
+/* =========================================================
+   LOCATION MAP (Leaflet + CartoDB Positron - minimalist)
+   ========================================================= */
+(function(){
+  var mapEl=document.getElementById('locationMap');
+  if(!mapEl||typeof L==='undefined')return;
+  var coords=[42.919697,17.172616]; /* Les Terrasses, Lumbarda */
+  var map=L.map('locationMap',{
+    center:coords,zoom:15,scrollWheelZoom:false,
+    zoomControl:true,attributionControl:true
+  });
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png',{
+    attribution:'&copy; OpenStreetMap &copy; CARTO',
+    subdomains:'abcd',maxZoom:19
+  }).addTo(map);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}{r}.png',{
+    subdomains:'abcd',maxZoom:19,opacity:.85
+  }).addTo(map);
+  var goldIcon=L.divIcon({
+    className:'custom-gold-marker',
+    html:'<div class="gold-marker-pulse"></div><div class="gold-marker"></div>',
+    iconSize:[44,44],iconAnchor:[22,44]
+  });
+  L.marker(coords,{icon:goldIcon}).addTo(map);
+  /* Activate scroll-zoom on click, disable on mouseleave */
+  map.on('click',function(){map.scrollWheelZoom.enable()});
+  mapEl.addEventListener('mouseleave',function(){map.scrollWheelZoom.disable()});
+})();
+
+/* =========================================================
+   INIT
+   ========================================================= */
+setLanguage('fr');
+</script>
+</body>
+</html>
