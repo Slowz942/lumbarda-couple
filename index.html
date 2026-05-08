@@ -1528,16 +1528,7 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
   var heroVideo=document.getElementById('heroVideo');
   if(!heroVideo)return;
 
-  /* Fallback: if primary video fails, try alternative */
-  heroVideo.addEventListener('error',function(){
-    var altSrc='https://cdn.pixabay.com/video/2024/03/15/204420-923590044_large.mp4';
-    if(heroVideo.querySelector('source').src!==altSrc){
-      heroVideo.querySelector('source').src=altSrc;
-      heroVideo.load();
-    }
-  },true);
-
-  /* Ken Burns animation handled by CSS (.hero-bg video) — no JS parallax to avoid transform conflict */
+  /* No fallback: if videos/hero.mp4 fails, the poster image stays — Ken Burns CSS handles animation */
 })();
 
 /* =========================================================
