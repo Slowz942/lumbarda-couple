@@ -642,6 +642,59 @@ h1,h2,h3,h4{font-family:var(--font-display);font-weight:400;line-height:1.3;font
 @media(max-width:480px){
   .location-address-text{font-size:1.15rem}
   .location-actions{flex-direction:column}
+  .location-actions .btn-outline-dark{width:100%;min-width:0}
+}
+
+/* ========================================
+   MOBILE OPTIMIZATIONS (final pass)
+   ======================================== */
+@media(max-width:768px){
+  html,body{overflow-x:hidden}
+  .container,.container-wide{padding:0 18px}
+  .navbar{padding:14px 0}
+  .navbar.scrolled{padding:10px 0}
+  .nav-logo{width:50px;height:50px}
+  .navbar.scrolled .nav-logo{width:44px;height:44px}
+  .hero-logo.hero-logo-large{width:78%;max-width:420px;height:auto}
+  .brandmark-row{flex-wrap:wrap;justify-content:center;gap:14px 22px}
+  .brandmark-text{font-size:1rem;letter-spacing:1.2px;white-space:normal;text-align:center}
+  .brandmark-icon{width:48px;height:48px}
+  .brandmark-location{font-size:.65rem;letter-spacing:4px}
+  .intro,.about,.apartments,.gallery,.faq,.contact,.location{padding:60px 0}
+  .apt-detail{padding:50px 0}
+  .stats-bar{padding:24px 0}
+  .stats-inner{flex-wrap:wrap;justify-content:center}
+  .section-title{font-size:clamp(1.7rem,6vw,2.5rem);padding:0 8px}
+  .section-subtitle{font-size:.92rem;padding:0 12px}
+  .features-grid{padding:0 8px}
+  .footer-grid{text-align:center}
+  .footer-social{justify-content:center}
+  .footer-links{align-items:center}
+  .lightbox-nav{width:42px;height:42px}
+  /* Map */
+  .map-wrap,#locationMap{min-height:340px}
+  /* Apt detail images */
+  .apt-detail-img{order:-1}
+}
+
+@media(max-width:480px){
+  .container,.container-wide{padding:0 16px}
+  .nav-logo{width:44px;height:44px}
+  .navbar.scrolled .nav-logo{width:40px;height:40px}
+  .hero-logo.hero-logo-large{width:74%;max-width:320px}
+  .brandmark-row{flex-direction:column;gap:10px}
+  .brandmark-text{font-size:.95rem}
+  .brandmark-icon{width:54px;height:54px}
+  .section-title{font-size:clamp(1.5rem,7vw,2.1rem)}
+  .btn-gold,.btn-outline,.btn-outline-dark,.btn-book-large{padding:13px 26px;font-size:.82rem}
+  .hero-btns{width:100%;padding:0 8px}
+  .stat-number{font-size:1.4rem}
+  .stat-text{font-size:.65rem;letter-spacing:1.5px}
+  .apt-card{padding:18px 16px 22px}
+  .price-badge{font-size:.7rem;padding:6px 12px}
+  .form-group input,.form-group textarea{padding:13px 14px;font-size:.92rem}
+  .map-wrap,#locationMap{min-height:300px}
+  .gallery-grid{gap:8px}
 }
 </style>
 </head>
