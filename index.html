@@ -1495,7 +1495,7 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
   if(!mapEl||typeof L==='undefined')return;
   var coords=[42.919697,17.172616]; /* Les Terrasses, Lumbarda */
   var map=L.map('locationMap',{
-    center:coords,zoom:15,scrollWheelZoom:false,
+    center:coords,zoom:7,scrollWheelZoom:false,
     zoomControl:true,attributionControl:true
   });
   L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png',{
