@@ -47,7 +47,7 @@ jobs:
           set net:timeout 30
           set net:max-retries 2
           set cmd:fail-exit yes
-          mirror --reverse --verbose --only-newer --no-perms /tmp/site "$DIR"
+          mirror --reverse --verbose --no-perms --ignore-time /tmp/site "$DIR"
           bye
           EOF
           echo "Déploiement terminé."
