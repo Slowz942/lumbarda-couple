@@ -1,0 +1,38 @@
+name: Déploiement OVH
+
+# Chaque push sur "main" met le site en ligne automatiquement via SFTP/FTP.
+# Secrets à créer dans GitHub > Settings > Secrets and variables > Actions :
+#   OVH_FTP_HOST      ex : ftp.cluster129.hosting.ovh.net
+#   OVH_FTP_USER      identifiant FTP OVH (ex : lestern)
+#   OVH_FTP_PASSWORD  mot de passe FTP OVH
+#   OVH_FTP_DIR       dossier cible, généralement "www/"  (avec le / final)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+
+      - name: Envoyer sur OVH
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.OVH_FTP_HOST }}
+          username: ${{ secrets.OVH_FTP_USER }}
+          password: ${{ secrets.OVH_FTP_PASSWORD }}
+          protocol: ftps
+          server-dir: ${{ secrets.OVH_FTP_DIR }}
+          local-dir: ./
+          dangerous-clean-slate: false
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.github/**
+            **/.claude/**
+            **/*.md
+            **/.gitignore
