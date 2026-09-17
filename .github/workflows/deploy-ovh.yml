@@ -48,6 +48,10 @@ jobs:
           set net:max-retries 2
           set cmd:fail-exit yes
           mirror --reverse --verbose --no-perms --ignore-time /tmp/site "$DIR"
+          echo "=== Contenu de la racine du compte ==="
+          ls -la
+          echo "=== Contenu de $DIR ==="
+          ls -la "$DIR"
           bye
           EOF
           echo "Déploiement terminé."
