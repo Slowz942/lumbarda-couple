@@ -7,9 +7,9 @@ name: Déploiement OVH
 #   OVH_FTP_PASSWORD  mot de passe FTP OVH
 #   OVH_FTP_DIR       dossier cible, généralement "www/"  (avec le / final)
 
+# DÉPLOIEMENT AUTOMATIQUE SUSPENDU le 18/09/2026 : la bonne version du site
+# est celle restaurée sur OVH. Ne relancer qu'après l'avoir intégrée au dépôt.
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 jobs:
