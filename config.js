@@ -31,7 +31,13 @@ window.LT_CONFIG = {
 
   /* Règles affichées dans le calendrier du site */
   maxGuests: 2,   // personnes maximum par appartement
-  minNights: 1,   // nombre de nuits minimum (mettre 3 ou 7 en haute saison si besoin)
+  minNights: 1,   // nombre de nuits minimum hors saison
+
+  /* Minimum de nuits par période (format "MM-JJ", selon la date d'arrivée).
+     Haute saison d'été : 7 nuits minimum. Modifiez les dates si besoin. */
+  seasons: [
+    { from: "07-01", to: "08-31", minNights: 7 }
+  ],
 
   /* -------- URL GÉNÉRALE (page listant tous les appartements) --------
      SMOOBU : Réglages > Moteur de réservation > "Lien de la page de réservation"
