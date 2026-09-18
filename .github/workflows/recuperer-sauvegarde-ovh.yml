@@ -1,0 +1,58 @@
+name: Récupérer sauvegarde OVH
+
+# Lecture seule : télécharge le dossier www d'une sauvegarde automatique OVH
+# (identifiant FTP suffixé par -snapN) et le range dans la branche "sauvegarde-ovh".
+# snap0 = aujourd'hui 00h01, snap1 = hier, snap2 = avant-hier, snap3/snap4 = dimanches précédents.
+
+on:
+  workflow_dispatch:
+    inputs:
+      snap:
+        description: "Numéro de sauvegarde (0 à 4)"
+        default: "1"
+  push:
+    branches: [main]
+    paths: ['.github/workflows/recuperer-sauvegarde-ovh.yml']
+
+permissions:
+  contents: write
+
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+      - name: Télécharger la sauvegarde
+        env:
+          HOST: ${{ secrets.OVH_FTP_HOST }}
+          USER: ${{ secrets.OVH_FTP_USER }}
+          PASS: ${{ secrets.OVH_FTP_PASSWORD }}
+          SNAP: ${{ github.event.inputs.snap || '1' }}
+        run: |
+          mkdir -p /tmp/backup
+          for N in "$SNAP" 2 3; do
+            echo "=== Essai sauvegarde snap$N ==="
+            rm -rf /tmp/backup/*
+            if lftp -u "${USER}-snap${N}","$PASS" "sftp://$HOST" -e "set sftp:auto-confirm yes; set net:timeout 30; set net:max-retries 2; set cmd:fail-exit yes; mirror --verbose --exclude-glob .htpasswd www /tmp/backup/www; bye"; then
+              if [ -f /tmp/backup/www/index.html ] && ! grep -q bookingSearch /tmp/backup/www/index.html; then
+                echo "Sauvegarde snap$N : ancienne version trouvée"; echo "$N" > /tmp/backup/SNAP; break
+              else
+                echo "snap$N contient déjà la nouvelle version, on remonte plus loin"
+              fi
+            else
+              echo "snap$N inaccessible"
+            fi
+          done
+          ls -laR /tmp/backup | head -80
+          test -f /tmp/backup/SNAP
+      - name: Ranger dans la branche sauvegarde-ovh
+        run: |
+          git config user.name "sauvegarde-ovh"
+          git config user.email "actions@users.noreply.github.com"
+          git checkout --orphan sauvegarde-ovh
+          git rm -rfq . || true
+          cp -a /tmp/backup/www/. .
+          git add -A
+          git commit -qm "Sauvegarde OVH du dossier www (snap$(cat /tmp/backup/SNAP))"
+          git push -f origin sauvegarde-ovh
