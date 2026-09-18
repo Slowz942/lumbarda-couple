@@ -16,6 +16,9 @@ Options -Indexes
 <FilesMatch "^(\.htaccess|\.htpasswd|\.git.*|\.env|.*\.md|.*\.lock|.*\.yml|.*\.yaml)$">
   Require all denied
 </FilesMatch>
+<Files "availability-config.php">
+  Require all denied
+</Files>
 RedirectMatch 404 /\.git
 
 # ---- Page 404 ----

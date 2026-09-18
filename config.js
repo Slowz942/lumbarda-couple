@@ -29,6 +29,10 @@ window.LT_CONFIG = {
 
   currency: "EUR",
 
+  /* Règles affichées dans le calendrier du site */
+  maxGuests: 2,   // personnes maximum par appartement
+  minNights: 1,   // nombre de nuits minimum (mettre 3 ou 7 en haute saison si besoin)
+
   /* -------- URL GÉNÉRALE (page listant tous les appartements) --------
      SMOOBU : Réglages > Moteur de réservation > "Lien de la page de réservation"
        ex : "https://booking.smoobu.com/LesTerrassesLumbarda?arrival={checkin}&departure={checkout}&adults={guests}&lang={lang}"
