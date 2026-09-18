@@ -5,6 +5,9 @@ name: Copier le site OVH vers GitHub
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/copie-ovh.trigger']
 
 permissions:
   contents: write
