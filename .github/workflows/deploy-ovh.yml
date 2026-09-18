@@ -9,8 +9,14 @@ name: Déploiement OVH
 
 # DÉPLOIEMENT AUTOMATIQUE SUSPENDU le 18/09/2026 : la bonne version du site
 # est celle restaurée sur OVH. Ne relancer qu'après l'avoir intégrée au dépôt.
+#
+# Pour déployer : bouton "Run workflow" sur GitHub, ou modifier le fichier
+# .github/deploy.trigger (n'importe quel contenu) et enregistrer.
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/deploy.trigger']
 
 jobs:
   deploy:

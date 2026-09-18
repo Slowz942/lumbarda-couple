@@ -84,27 +84,61 @@ if (preg_match('/https?:\/\/\S+.*https?:\/\/\S+.*https?:\/\//is', $message)) rep
 $hits[] = time();
 @file_put_contents($rateFile, implode("\n", $hits), LOCK_EX);
 
-/* Build mail */
-$subject = '[' . SITE_NAME . '] Nouveau message' . ($apartment ? ' — ' . $apartment : '') . ' — ' . $name;
-$body  = "Nouveau message depuis le site " . SITE_NAME . "\n";
-$body .= str_repeat('-', 50) . "\n";
-$body .= "Nom         : $name\n";
-$body .= "Email       : $email\n";
-$body .= "Appartement : " . ($apartment ?: '—') . "\n";
-$body .= "Dates       : " . ($dates ?: '—') . "\n";
-$body .= "Langue      : $lang\n";
-$body .= "IP          : $ip\n";
-$body .= "Date        : " . date('d/m/Y H:i') . "\n";
-$body .= str_repeat('-', 50) . "\n\n";
-$body .= $message . "\n";
+/* Build mail — sujet clair + version HTML structurée + version texte */
+$langNames = ['fr' => 'Français', 'en' => 'Anglais', 'it' => 'Italien', 'de' => 'Allemand', 'hr' => 'Croate'];
+$langLabel = $langNames[$lang] ?? $lang;
+$when      = date('d/m/Y à H:i');
+$subject   = 'Question site — ' . $name . ($apartment ? ' — ' . $apartment : '') . ($dates ? ' — ' . $dates : '');
 
+$text  = "NOUVELLE QUESTION DEPUIS LE SITE\n";
+$text .= str_repeat('=', 44) . "\n\n";
+$text .= "De          : $name\n";
+$text .= "Email       : $email\n";
+$text .= "Appartement : " . ($apartment ?: 'non précisé') . "\n";
+$text .= "Dates       : " . ($dates ?: 'non précisées') . "\n";
+$text .= "Langue      : $langLabel\n";
+$text .= "Reçu le     : $when\n\n";
+$text .= "MESSAGE\n" . str_repeat('-', 44) . "\n" . $message . "\n\n";
+$text .= str_repeat('-', 44) . "\n";
+$text .= "Pour répondre : cliquez simplement sur « Répondre », votre réponse partira à $email.\n";
+
+$h = fn(string $v): string => htmlspecialchars($v, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+$row = fn(string $label, string $value): string =>
+    '<tr><td style="padding:10px 0;border-bottom:1px solid #eee;color:#999;font-size:12px;letter-spacing:1px;text-transform:uppercase;width:130px;vertical-align:top">' . $label . '</td>'
+  . '<td style="padding:10px 0;border-bottom:1px solid #eee;color:#1a1a1a;font-size:15px">' . $value . '</td></tr>';
+
+$html  = '<!DOCTYPE html><html><body style="margin:0;padding:0;background:#f4f2ee;font-family:Arial,Helvetica,sans-serif">';
+$html .= '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4f2ee;padding:24px 12px"><tr><td align="center">';
+$html .= '<table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background:#ffffff;border-radius:10px;overflow:hidden">';
+$html .= '<tr><td style="background:#111111;padding:26px 32px"><div style="color:#C9A96E;font-size:11px;letter-spacing:3px;text-transform:uppercase">Les Terrasses de Lumbarda</div>';
+$html .= '<div style="color:#ffffff;font-size:22px;font-family:Georgia,serif;font-style:italic;margin-top:6px">Nouvelle question d’un visiteur</div></td></tr>';
+$html .= '<tr><td style="padding:24px 32px 8px"><table role="presentation" width="100%" cellpadding="0" cellspacing="0">';
+$html .= $row('De', '<strong>' . $h($name) . '</strong>');
+$html .= $row('Email', '<a href="mailto:' . $h($email) . '" style="color:#b8944f">' . $h($email) . '</a>');
+$html .= $row('Appartement', $apartment ? $h($apartment) : '<span style="color:#aaa">non précisé</span>');
+$html .= $row('Dates', $dates ? $h($dates) : '<span style="color:#aaa">non précisées</span>');
+$html .= $row('Langue', $h($langLabel));
+$html .= $row('Reçu le', $h($when));
+$html .= '</table></td></tr>';
+$html .= '<tr><td style="padding:16px 32px 8px"><div style="color:#999;font-size:12px;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px">Message</div>';
+$html .= '<div style="background:#FAF9F7;border-left:3px solid #C9A96E;padding:16px 18px;color:#1a1a1a;font-size:15px;line-height:1.7">' . nl2br($h($message)) . '</div></td></tr>';
+$html .= '<tr><td style="padding:22px 32px 30px" align="center"><a href="mailto:' . $h($email) . '?subject=' . rawurlencode('Re: votre demande — Les Terrasses de Lumbarda') . '" style="display:inline-block;background:#C9A96E;color:#ffffff;text-decoration:none;padding:13px 30px;border-radius:40px;font-size:13px;letter-spacing:1px;text-transform:uppercase">Répondre à ' . $h($name) . '</a>';
+$html .= '<div style="color:#aaa;font-size:12px;margin-top:14px">Ou cliquez simplement sur « Répondre » : la réponse part directement au visiteur.</div></td></tr>';
+$html .= '<tr><td style="background:#FAF9F7;padding:14px 32px;color:#aaa;font-size:11px;text-align:center">Message envoyé depuis le formulaire de contact de lesterrasses-lumbarda.com</td></tr>';
+$html .= '</table></td></tr></table></body></html>';
+
+$boundary   = 'lt_' . bin2hex(random_bytes(12));
 $encSubject = '=?UTF-8?B?' . base64_encode($subject) . '?=';
+$encName    = '=?UTF-8?B?' . base64_encode($name) . '?=';
 $headers  = "From: " . SITE_NAME . " <" . FROM_EMAIL . ">\r\n";
-$headers .= "Reply-To: " . $name . " <" . $email . ">\r\n"; // $name/$email déjà nettoyés (pas de CR/LF)
+$headers .= "Reply-To: " . $encName . " <" . $email . ">\r\n"; // $email validé, sans CR/LF
 $headers .= "MIME-Version: 1.0\r\n";
-$headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
-$headers .= "Content-Transfer-Encoding: 8bit\r\n";
+$headers .= "Content-Type: multipart/alternative; boundary=\"$boundary\"\r\n";
 $headers .= "X-Mailer: PHP/" . PHP_VERSION . "\r\n";
+
+$body  = "--$boundary\r\nContent-Type: text/plain; charset=UTF-8\r\nContent-Transfer-Encoding: base64\r\n\r\n" . chunk_split(base64_encode($text)) . "\r\n";
+$body .= "--$boundary\r\nContent-Type: text/html; charset=UTF-8\r\nContent-Transfer-Encoding: base64\r\n\r\n" . chunk_split(base64_encode($html)) . "\r\n";
+$body .= "--$boundary--\r\n";
 
 $sent = @mail(TO_EMAIL, $encSubject, $body, $headers, '-f' . FROM_EMAIL);
 
