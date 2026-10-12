@@ -55,7 +55,8 @@ jobs:
           set cmd:fail-exit yes
           lcd /tmp/site
           cd "$DIR"
-          mirror --reverse --delete --verbose --no-perms --ignore-time . .
+          mirror --reverse --delete --verbose --no-perms . .
+          put -O . index.html config.js
           echo "=== Contenu de $DIR après déploiement ==="
           ls -l
           bye
