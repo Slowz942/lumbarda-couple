@@ -71,7 +71,10 @@ $clean = fn(string $v, int $max): string => mb_substr(trim(preg_replace('/[\r\n\
 $name      = $clean((string)($_POST['name'] ?? ''), 100);
 $email     = $clean((string)($_POST['email'] ?? ''), 150);
 $apartment = $clean((string)($_POST['apartment'] ?? ''), 40);
-$dates     = $clean((string)($_POST['dates'] ?? ''), 80);
+$fmt       = fn(string $d): string => preg_match('/^(d{4})-(d{2})-(d{2})$/', $d, $x) ? "$x[3]/$x[2]/$x[1]" : '';
+$dIn       = $fmt((string)($_POST['date_in'] ?? ''));
+$dOut      = $fmt((string)($_POST['date_out'] ?? ''));
+$dates     = ($dIn || $dOut) ? trim($dIn . ' → ' . $dOut, ' →') : $clean((string)($_POST['dates'] ?? ''), 80);
 $lang      = preg_match('/^[a-z]{2}$/', (string)($_POST['lang'] ?? '')) ? $_POST['lang'] : 'fr';
 $message   = mb_substr(trim((string)($_POST['message'] ?? '')), 0, 3000);
 
