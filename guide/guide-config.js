@@ -63,7 +63,7 @@ var GUIDE_CONFIG = {
   RESTO_2: "Bar Maestral — Lumbarda, pour un verre face à la mer",
   SHOP: "Supermarchés : Studenac à Lumbarda ; Plodine et Tommy à Korčula",
   DOCTOR: "Ambulanta Korčula (centre de santé de Korčula)",
-  PHARMACY: ""              // ex : "Ljekarna Korčula, centre-ville"
+  PHARMACY: "Pharmacie de Lumbarda, sur le front de mer, dans l’anse de Lumbarda"
 };
 
 /* =============================================================
