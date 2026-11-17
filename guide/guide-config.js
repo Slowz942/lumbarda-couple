@@ -33,7 +33,7 @@ var GUIDE_CONFIG = {
   TRASH_HOWTO: "",          // ex : "Conteneurs au bout du chemin, à gauche : vert = ordures, jaune = plastique, bleu = papier. Sortir les sacs le soir."
 
   /* Piscine */
-  POOL_HOURS: "24h/24, de mai à octobre",
+  POOL_HOURS: "accessible à toute heure, de mai à octobre ; l’éclairage s’éteint la nuit",
 
   /* Parking */
   PARKING_HOWTO: "",        // ex : "Place numérotée devant la maison, même numéro que l'appartement."
@@ -59,10 +59,10 @@ var GUIDE_CONFIG = {
   /* Bonnes adresses (laissez vide si vous ne voulez pas les afficher) */
   BEACH_1: "Plaža Pržina (sable) — 15 min à pied",
   BEACH_2: "Plaža Bilin Žal (galets) — 20 min à pied",
-  RESTO_1: "",              // ex : "Konoba Feral — poisson grillé, face à la mer"
-  RESTO_2: "",
-  SHOP: "",                 // ex : "Supermarché Studenac au centre, 7h–21h"
-  DOCTOR: "",               // ex : "Dom zdravlja Korčula (centre médical), +385 20 711 137"
+  RESTO_1: "Restaurant Marco Polo — Korčula",
+  RESTO_2: "Bar Maestral — Lumbarda, pour un verre face à la mer",
+  SHOP: "Supermarchés : Studenac à Lumbarda ; Plodine et Tommy à Korčula",
+  DOCTOR: "Ambulanta Korčula (centre de santé de Korčula)",
   PHARMACY: ""              // ex : "Ljekarna Korčula, centre-ville"
 };
 
