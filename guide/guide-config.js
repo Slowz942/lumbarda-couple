@@ -10,10 +10,10 @@
 var GUIDE_CONFIG = {
   /* Wifi — un point d'accès par appartement (QR code ?apt=1 … ?apt=4) */
   WIFI: {
-    1: { name: "Les Terrasses 1", password: "" },
-    2: { name: "Les Terrasses 2", password: "" },
-    3: { name: "Les Terrasses 3", password: "" },
-    4: { name: "Les Terrasses 4", password: "" }
+    1: { name: "Les Terrasses 1", password: ""   /* réseau ouvert, pas de mot de passe */ },
+    2: { name: "Les Terrasses 2", password: ""   /* réseau ouvert, pas de mot de passe */ },
+    3: { name: "Les Terrasses 3", password: ""   /* réseau ouvert, pas de mot de passe */ },
+    4: { name: "Les Terrasses 4", password: ""   /* réseau ouvert, pas de mot de passe */ }
   },
 
   /* Télévision */
@@ -33,7 +33,7 @@ var GUIDE_CONFIG = {
   TRASH_HOWTO: "",          // ex : "Conteneurs au bout du chemin, à gauche : vert = ordures, jaune = plastique, bleu = papier. Sortir les sacs le soir."
 
   /* Piscine */
-  POOL_HOURS: "",           // ex : "9h – 21h"
+  POOL_HOURS: "24h/24, de mai à octobre",
 
   /* Parking */
   PARKING_HOWTO: "",        // ex : "Place numérotée devant la maison, même numéro que l'appartement."
@@ -74,11 +74,11 @@ var GUIDE_TEXT = {
 fr:{sub:"Guide du séjour",apt:"Appartement",
 welcome:"<strong>Bienvenue aux Terrasses de Lumbarda !</strong><br>Vous trouverez ici tout ce qu’il faut savoir pour profiter de l’appartement : wifi, télévision, climatisation, cuisine, piscine, départ, numéros utiles. Bon séjour sur l’île de Korčula.",
 sections:[
-{id:"wifi",icon:"wifi",title:"Wifi",html:"<div class='kv'><b>Réseau</b><code>{WIFI_NAME}</code><b>Mot de passe</b><code>{WIFI_PASSWORD}</code></div><p>Le wifi est inclus et fonctionne aussi sur la terrasse. En cas de coupure, débranchez la box 30 secondes puis rebranchez-la.</p>"},
+{id:"wifi",icon:"wifi",title:"Wifi",html:"<div class='kv'><b>Réseau</b><code>{WIFI_NAME}</code><b>Mot de passe</b><span>aucun : réseau ouvert, connectez-vous directement</span></div><p>Le wifi est inclus et fonctionne aussi sur la terrasse. Une prise Ethernet est disponible. En cas de coupure, débranchez la box 30 secondes puis rebranchez-la.</p>"},
 {id:"tv",icon:"tv",title:"Télévision",html:"<p>Téléviseur {TV_BRAND} connecté.</p><p>{TV_HOWTO}</p><p>Vous pouvez vous connecter à vos propres comptes (Netflix, YouTube…). Pensez à vous déconnecter avant de partir.</p>"},
 {id:"ac",icon:"ac",title:"Climatisation",html:"<p>{AC_HOWTO}</p><p>Merci de fermer les baies vitrées quand la climatisation fonctionne et de l’éteindre quand vous quittez l’appartement : c’est meilleur pour l’appareil et pour la planète.</p>"},
 {id:"kitchen",icon:"kitchen",title:"Cuisine &amp; eau chaude",html:"<p>{KITCHEN_HOWTO}</p><p>{WATER_HOWTO}</p><p>Vaisselle, casseroles, verres et couverts pour deux sont dans les placards. Merci de laisser la cuisine propre à votre départ.</p>"},
-{id:"bath",icon:"bath",title:"Salle de bain &amp; linge",html:"<p>Serviettes de bain et linge de lit sont fournis. Un sèche-cheveux est à votre disposition. Le sèche-serviettes fonctionne en continu.</p><p>Pour un séjour d’une semaine ou plus, le ménage et le changement de linge sont faits une fois par semaine.</p>"},
+{id:"bath",icon:"bath",title:"Salle de bain &amp; linge",html:"<p>Lit king size avec linge en coton ; oreillers et couvertures supplémentaires dans le dressing. Serviettes, shampoing et gel douche fournis. Sèche-cheveux à disposition.</p><p>Pas de lave-linge dans l’appartement : un étendoir est fourni, et une laverie se trouve à Korčula.</p><p>Pour un séjour d’une semaine ou plus, le ménage et le changement de linge sont faits une fois par semaine.</p>"},
 {id:"pool",icon:"pool",title:"Piscine",html:"<p>La piscine est réservée aux hôtes des quatre appartements. Transats et serviettes de piscine à votre disposition.</p><ul><li>Horaires : {POOL_HOURS}</li><li>Douche avant la baignade, pas de verre au bord du bassin.</li><li>Piscine non surveillée et non clôturée : baignade sous votre responsabilité.</li><li>Calme après 22h par respect pour les voisins.</li></ul>"},
 {id:"trash",icon:"trash",title:"Poubelles &amp; tri",html:"<p>{TRASH_HOWTO}</p>"},
 {id:"key",icon:"key",title:"Arrivée, départ &amp; parking",html:"<div class='kv'><b>Arrivée</b><span>à partir de {CHECKIN}</span><b>Départ</b><span>avant {CHECKOUT}</span></div><p>{KEYBOX_HOWTO}</p><p>{PARKING_HOWTO}</p><p>Avant de partir : fenêtres fermées, climatisation éteinte, vaisselle faite, poubelles sorties, clé dans la boîte. Merci !</p>"},
@@ -91,11 +91,11 @@ sections:[
 en:{sub:"Guest guide",apt:"Apartment",
 welcome:"<strong>Welcome to Les Terrasses de Lumbarda!</strong><br>Everything you need to enjoy the apartment is here: Wi-Fi, TV, air conditioning, kitchen, pool, check-out and useful numbers. Enjoy your stay on the island of Korčula.",
 sections:[
-{id:"wifi",icon:"wifi",title:"Wi-Fi",html:"<div class='kv'><b>Network</b><code>{WIFI_NAME}</code><b>Password</b><code>{WIFI_PASSWORD}</code></div><p>Wi-Fi is included and also works on the terrace. If it drops, unplug the router for 30 seconds and plug it back in.</p>"},
+{id:"wifi",icon:"wifi",title:"Wi-Fi",html:"<div class='kv'><b>Network</b><code>{WIFI_NAME}</code><b>Password</b><span>none: open network, just connect</span></div><p>Wi-Fi is included and also works on the terrace. An Ethernet socket is available. If it drops, unplug the router for 30 seconds and plug it back in.</p>"},
 {id:"tv",icon:"tv",title:"Television",html:"<p>{TV_BRAND} smart TV.</p><p>{TV_HOWTO}</p><p>You can sign in to your own accounts (Netflix, YouTube…). Please sign out before you leave.</p>"},
 {id:"ac",icon:"ac",title:"Air conditioning",html:"<p>{AC_HOWTO}</p><p>Please keep the sliding doors closed while the A/C is running and switch it off when you leave the apartment.</p>"},
 {id:"kitchen",icon:"kitchen",title:"Kitchen &amp; hot water",html:"<p>{KITCHEN_HOWTO}</p><p>{WATER_HOWTO}</p><p>Tableware, pans, glasses and cutlery for two are in the cupboards. Please leave the kitchen clean when you check out.</p>"},
-{id:"bath",icon:"bath",title:"Bathroom &amp; linen",html:"<p>Bath towels and bed linen are provided. A hair dryer is at your disposal. The towel rail is always on.</p><p>For stays of a week or more, cleaning and fresh linen are provided once a week.</p>"},
+{id:"bath",icon:"bath",title:"Bathroom &amp; linen",html:"<p>King-size bed with cotton linen; extra pillows and blankets in the wardrobe. Towels, shampoo and shower gel provided. Hair dryer available.</p><p>No washing machine in the apartment: a drying rack is provided and there is a laundrette in Korčula town.</p><p>For stays of a week or more, cleaning and fresh linen are provided once a week.</p>"},
 {id:"pool",icon:"pool",title:"Pool",html:"<p>The pool is reserved for guests of the four apartments. Sun loungers and pool towels are available.</p><ul><li>Hours: {POOL_HOURS}</li><li>Shower before swimming, no glass by the pool.</li><li>Unsupervised, unfenced pool: swim at your own risk.</li><li>Quiet after 10 PM out of respect for the neighbours.</li></ul>"},
 {id:"trash",icon:"trash",title:"Waste &amp; recycling",html:"<p>{TRASH_HOWTO}</p>"},
 {id:"key",icon:"key",title:"Check-in, check-out &amp; parking",html:"<div class='kv'><b>Check-in</b><span>from {CHECKIN}</span><b>Check-out</b><span>before {CHECKOUT}</span></div><p>{KEYBOX_HOWTO}</p><p>{PARKING_HOWTO}</p><p>Before leaving: windows closed, A/C off, dishes done, rubbish out, key in the box. Thank you!</p>"},
@@ -108,11 +108,11 @@ sections:[
 it:{sub:"Guida al soggiorno",apt:"Appartamento",
 welcome:"<strong>Benvenuti a Les Terrasses de Lumbarda!</strong><br>Qui trovate tutto il necessario per godervi l’appartamento: Wi-Fi, TV, aria condizionata, cucina, piscina, partenza e numeri utili. Buon soggiorno sull’isola di Korčula.",
 sections:[
-{id:"wifi",icon:"wifi",title:"Wi-Fi",html:"<div class='kv'><b>Rete</b><code>{WIFI_NAME}</code><b>Password</b><code>{WIFI_PASSWORD}</code></div><p>Il Wi-Fi è incluso e funziona anche in terrazza. In caso di interruzione, scollegate il router per 30 secondi e ricollegatelo.</p>"},
+{id:"wifi",icon:"wifi",title:"Wi-Fi",html:"<div class='kv'><b>Rete</b><code>{WIFI_NAME}</code><b>Password</b><span>nessuna: rete aperta, collegatevi direttamente</span></div><p>Il Wi-Fi è incluso e funziona anche in terrazza. È disponibile una presa Ethernet. In caso di interruzione, scollegate il router per 30 secondi e ricollegatelo.</p>"},
 {id:"tv",icon:"tv",title:"Televisione",html:"<p>Smart TV {TV_BRAND}.</p><p>{TV_HOWTO}</p><p>Potete accedere ai vostri account (Netflix, YouTube…). Ricordate di disconnettervi prima di partire.</p>"},
 {id:"ac",icon:"ac",title:"Aria condizionata",html:"<p>{AC_HOWTO}</p><p>Tenete chiuse le vetrate quando il climatizzatore è acceso e spegnetelo quando uscite dall’appartamento.</p>"},
 {id:"kitchen",icon:"kitchen",title:"Cucina e acqua calda",html:"<p>{KITCHEN_HOWTO}</p><p>{WATER_HOWTO}</p><p>Stoviglie, pentole, bicchieri e posate per due sono negli armadietti. Lasciate la cucina pulita alla partenza, grazie.</p>"},
-{id:"bath",icon:"bath",title:"Bagno e biancheria",html:"<p>Asciugamani e biancheria da letto sono forniti. Asciugacapelli a disposizione. Lo scaldasalviette è sempre acceso.</p><p>Per soggiorni di una settimana o più, pulizia e cambio biancheria una volta a settimana.</p>"},
+{id:"bath",icon:"bath",title:"Bagno e biancheria",html:"<p>Letto king size con biancheria in cotone; cuscini e coperte extra nella cabina armadio. Asciugamani, shampoo e bagnoschiuma forniti. Asciugacapelli a disposizione.</p><p>Niente lavatrice nell’appartamento: stendibiancheria fornito, lavanderia a Korčula.</p><p>Per soggiorni di una settimana o più, pulizia e cambio biancheria una volta a settimana.</p>"},
 {id:"pool",icon:"pool",title:"Piscina",html:"<p>La piscina è riservata agli ospiti dei quattro appartamenti. Lettini e teli piscina a disposizione.</p><ul><li>Orari: {POOL_HOURS}</li><li>Doccia prima del bagno, niente vetro a bordo vasca.</li><li>Piscina non sorvegliata e non recintata: bagno sotto la vostra responsabilità.</li><li>Silenzio dopo le 22 per rispetto dei vicini.</li></ul>"},
 {id:"trash",icon:"trash",title:"Rifiuti e raccolta differenziata",html:"<p>{TRASH_HOWTO}</p>"},
 {id:"key",icon:"key",title:"Arrivo, partenza e parcheggio",html:"<div class='kv'><b>Arrivo</b><span>dalle {CHECKIN}</span><b>Partenza</b><span>entro le {CHECKOUT}</span></div><p>{KEYBOX_HOWTO}</p><p>{PARKING_HOWTO}</p><p>Prima di partire: finestre chiuse, climatizzatore spento, stoviglie lavate, rifiuti portati fuori, chiave nella cassetta. Grazie!</p>"},
@@ -125,11 +125,11 @@ sections:[
 de:{sub:"Gästeinformation",apt:"Apartment",
 welcome:"<strong>Willkommen in Les Terrasses de Lumbarda!</strong><br>Hier finden Sie alles für einen angenehmen Aufenthalt: WLAN, Fernseher, Klimaanlage, Küche, Pool, Abreise und nützliche Nummern. Schönen Aufenthalt auf der Insel Korčula.",
 sections:[
-{id:"wifi",icon:"wifi",title:"WLAN",html:"<div class='kv'><b>Netzwerk</b><code>{WIFI_NAME}</code><b>Passwort</b><code>{WIFI_PASSWORD}</code></div><p>WLAN ist inklusive und funktioniert auch auf der Terrasse. Bei Ausfall den Router 30 Sekunden vom Strom trennen und wieder anschließen.</p>"},
+{id:"wifi",icon:"wifi",title:"WLAN",html:"<div class='kv'><b>Netzwerk</b><code>{WIFI_NAME}</code><b>Passwort</b><span>keins: offenes Netzwerk, einfach verbinden</span></div><p>WLAN ist inklusive und funktioniert auch auf der Terrasse. Ein Ethernet-Anschluss ist vorhanden. Bei Ausfall den Router 30 Sekunden vom Strom trennen.</p>"},
 {id:"tv",icon:"tv",title:"Fernseher",html:"<p>{TV_BRAND} Smart-TV.</p><p>{TV_HOWTO}</p><p>Sie können sich mit Ihren eigenen Konten anmelden (Netflix, YouTube…). Bitte vor der Abreise abmelden.</p>"},
 {id:"ac",icon:"ac",title:"Klimaanlage",html:"<p>{AC_HOWTO}</p><p>Bitte Schiebetüren geschlossen halten, solange die Klimaanlage läuft, und sie beim Verlassen des Apartments ausschalten.</p>"},
 {id:"kitchen",icon:"kitchen",title:"Küche &amp; Warmwasser",html:"<p>{KITCHEN_HOWTO}</p><p>{WATER_HOWTO}</p><p>Geschirr, Töpfe, Gläser und Besteck für zwei Personen befinden sich in den Schränken. Bitte hinterlassen Sie die Küche sauber.</p>"},
-{id:"bath",icon:"bath",title:"Bad &amp; Wäsche",html:"<p>Handtücher und Bettwäsche werden gestellt. Ein Haartrockner steht bereit. Der Handtuchheizkörper läuft dauerhaft.</p><p>Ab einer Woche Aufenthalt: Reinigung und Wäschewechsel einmal pro Woche.</p>"},
+{id:"bath",icon:"bath",title:"Bad &amp; Wäsche",html:"<p>Kingsize-Bett mit Baumwollbettwäsche; zusätzliche Kissen und Decken im Schrank. Handtücher, Shampoo und Duschgel inklusive. Haartrockner vorhanden.</p><p>Keine Waschmaschine im Apartment: Wäscheständer vorhanden, Waschsalon in Korčula-Stadt.</p><p>Ab einer Woche Aufenthalt: Reinigung und Wäschewechsel einmal pro Woche.</p>"},
 {id:"pool",icon:"pool",title:"Pool",html:"<p>Der Pool ist den Gästen der vier Apartments vorbehalten. Liegen und Poolhandtücher stehen bereit.</p><ul><li>Öffnungszeiten: {POOL_HOURS}</li><li>Vor dem Baden duschen, kein Glas am Beckenrand.</li><li>Unbeaufsichtigter, nicht eingezäunter Pool: Baden auf eigene Gefahr.</li><li>Ruhe nach 22 Uhr aus Rücksicht auf die Nachbarn.</li></ul>"},
 {id:"trash",icon:"trash",title:"Müll &amp; Recycling",html:"<p>{TRASH_HOWTO}</p>"},
 {id:"key",icon:"key",title:"Anreise, Abreise &amp; Parken",html:"<div class='kv'><b>Anreise</b><span>ab {CHECKIN}</span><b>Abreise</b><span>bis {CHECKOUT}</span></div><p>{KEYBOX_HOWTO}</p><p>{PARKING_HOWTO}</p><p>Vor der Abreise: Fenster schließen, Klimaanlage aus, Geschirr spülen, Müll raus, Schlüssel in die Box. Danke!</p>"},
@@ -142,11 +142,11 @@ sections:[
 hr:{sub:"Vodič za goste",apt:"Apartman",
 welcome:"<strong>Dobro došli u Les Terrasses de Lumbarda!</strong><br>Ovdje je sve što trebate za ugodan boravak: Wi-Fi, TV, klima, kuhinja, bazen, odjava i korisni brojevi. Ugodan boravak na otoku Korčuli.",
 sections:[
-{id:"wifi",icon:"wifi",title:"Wi-Fi",html:"<div class='kv'><b>Mreža</b><code>{WIFI_NAME}</code><b>Lozinka</b><code>{WIFI_PASSWORD}</code></div><p>Wi-Fi je uključen i radi i na terasi. Ako prestane raditi, isključite router iz struje na 30 sekundi i ponovno ga uključite.</p>"},
+{id:"wifi",icon:"wifi",title:"Wi-Fi",html:"<div class='kv'><b>Mreža</b><code>{WIFI_NAME}</code><b>Lozinka</b><span>nema: otvorena mreža, samo se spojite</span></div><p>Wi-Fi je uključen i radi i na terasi. Dostupan je Ethernet priključak. Ako prestane raditi, isključite router iz struje na 30 sekundi.</p>"},
 {id:"tv",icon:"tv",title:"Televizor",html:"<p>{TV_BRAND} smart TV.</p><p>{TV_HOWTO}</p><p>Možete se prijaviti na svoje račune (Netflix, YouTube…). Molimo odjavite se prije odlaska.</p>"},
 {id:"ac",icon:"ac",title:"Klima-uređaj",html:"<p>{AC_HOWTO}</p><p>Molimo držite klizna vrata zatvorena dok klima radi i isključite je kad izlazite iz apartmana.</p>"},
 {id:"kitchen",icon:"kitchen",title:"Kuhinja i topla voda",html:"<p>{KITCHEN_HOWTO}</p><p>{WATER_HOWTO}</p><p>Posuđe, lonci, čaše i pribor za dvoje nalaze se u ormarićima. Molimo ostavite kuhinju čistom pri odlasku.</p>"},
-{id:"bath",icon:"bath",title:"Kupaonica i posteljina",html:"<p>Ručnici i posteljina su osigurani. Sušilo za kosu vam je na raspolaganju. Grijač za ručnike stalno radi.</p><p>Za boravak od tjedan dana ili dulje, čišćenje i promjena posteljine jednom tjedno.</p>"},
+{id:"bath",icon:"bath",title:"Kupaonica i posteljina",html:"<p>King size krevet s pamučnom posteljinom; dodatni jastuci i deke u garderobi. Ručnici, šampon i gel za tuširanje osigurani. Sušilo za kosu na raspolaganju.</p><p>U apartmanu nema perilice rublja: stalak za sušenje je osiguran, praonica se nalazi u gradu Korčuli.</p><p>Za boravak od tjedan dana ili dulje, čišćenje i promjena posteljine jednom tjedno.</p>"},
 {id:"pool",icon:"pool",title:"Bazen",html:"<p>Bazen je rezerviran za goste četiriju apartmana. Ležaljke i ručnici za bazen su na raspolaganju.</p><ul><li>Radno vrijeme: {POOL_HOURS}</li><li>Tuširanje prije kupanja, bez stakla uz bazen.</li><li>Bazen bez nadzora i ograde: kupanje na vlastitu odgovornost.</li><li>Tišina nakon 22 h iz obzira prema susjedima.</li></ul>"},
 {id:"trash",icon:"trash",title:"Otpad i recikliranje",html:"<p>{TRASH_HOWTO}</p>"},
 {id:"key",icon:"key",title:"Dolazak, odlazak i parking",html:"<div class='kv'><b>Dolazak</b><span>od {CHECKIN}</span><b>Odlazak</b><span>do {CHECKOUT}</span></div><p>{KEYBOX_HOWTO}</p><p>{PARKING_HOWTO}</p><p>Prije odlaska: zatvorite prozore, isključite klimu, operite posuđe, iznesite smeće, ključ u kutiju. Hvala!</p>"},

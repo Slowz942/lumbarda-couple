@@ -26,7 +26,7 @@ body{font-family:'Inter',sans-serif;background:#e9e7e2;padding:24px;color:#1a1a1
 </style>
 </head>
 <body>
-<p class="hint">Imprimer en A5 (ou A4 et couper en deux), papier épais, puis glisser dans un cadre ou plastifier. Les mots de passe wifi affichés viennent du fichier <code>guide-config.js</code>. Ctrl+P pour imprimer.</p>
+<p class="hint">Imprimer en A5 (ou A4 et couper en deux), papier épais, puis glisser dans un cadre ou plastifier. Ctrl+P pour imprimer.</p>
 <div class="cards" id="cards"></div>
 <script src="guide-config.js"></script>
 <script>
@@ -37,7 +37,7 @@ for(var a=1;a<=4;a++){
   '<img class="qr" src="qr/appartement-'+a+'.svg" alt="QR code">'+
   '<div class="title">Scannez-moi · Scan me</div>'+
   '<div class="sub">Guide du séjour : wifi, TV, climatisation, piscine, départ, numéros utiles.<br>Guest guide in English, Italiano, Deutsch, Hrvatski.</div>'+
-  '<div class="wifi"><b>Wifi</b> <code>'+(w.name||'')+'</code><br><b>Mot de passe · Password</b> <code>'+(w.password||'…')+'</code></div>'+
+  '<div class="wifi"><b>Wifi</b> <code>'+(w.name||'')+'</code><br><span style="font-size:8pt;color:#666">Réseau ouvert, sans mot de passe · Open network, no password</span></div>'+
   '<div class="url">lesterrasses-lumbarda.com/guide</div></div>';
 }
 document.getElementById('cards').innerHTML=out;
