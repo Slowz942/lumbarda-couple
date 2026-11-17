@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Cartes QR à imprimer | Les Terrasses de Lumbarda</title>
+<meta name="robots" content="noindex, nofollow">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#e9e7e2;padding:24px;color:#1a1a1a}
+.hint{max-width:700px;margin:0 auto 20px;font-size:.85rem;color:#555;background:#fff;padding:12px 16px;border-radius:8px}
+.cards{display:flex;flex-wrap:wrap;gap:20px;justify-content:center}
+.card{width:148mm;height:210mm;background:#fff;border-radius:6px;padding:16mm 14mm;display:flex;flex-direction:column;align-items:center;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,.08);position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:6mm;background:#111}
+.logo{width:22mm;height:22mm;background:#C9A96E;-webkit-mask:url('../images/logo-nav.svg') center/contain no-repeat;mask:url('../images/logo-nav.svg') center/contain no-repeat;margin-top:4mm}
+.brand{font-family:'Playfair Display',serif;font-style:italic;font-size:19pt;margin:5mm 0 1mm}
+.apt{font-size:8pt;letter-spacing:4px;text-transform:uppercase;color:#C9A96E;font-weight:500}
+.qr{width:70mm;height:70mm;margin:9mm 0 7mm;border:1px solid #eee;padding:3mm;border-radius:4px}
+.title{font-size:12pt;font-weight:500;margin-bottom:2mm}
+.sub{font-size:8.5pt;color:#666;line-height:1.5}
+.wifi{margin-top:7mm;background:#FAF9F7;border-top:2px solid #C9A96E;padding:4mm 8mm;width:100%;font-size:9pt;line-height:1.7}
+.wifi b{color:#b8944f;font-weight:500;letter-spacing:1px;font-size:7.5pt;text-transform:uppercase}
+.wifi code{font-family:ui-monospace,Consolas,monospace;font-size:10.5pt}
+.url{position:absolute;bottom:7mm;font-size:7.5pt;color:#999;letter-spacing:.5px}
+@media print{body{background:#fff;padding:0}.hint{display:none}.cards{gap:0}.card{box-shadow:none;border-radius:0;page-break-after:always;margin:0 auto}}
+</style>
+</head>
+<body>
+<p class="hint">Imprimer en A5 (ou A4 et couper en deux), papier épais, puis glisser dans un cadre ou plastifier. Les mots de passe wifi affichés viennent du fichier <code>guide-config.js</code>. Ctrl+P pour imprimer.</p>
+<div class="cards" id="cards"></div>
+<script src="guide-config.js"></script>
+<script>
+var out='';
+for(var a=1;a<=4;a++){
+  var w=GUIDE_CONFIG.WIFI[a]||{};
+  out+='<div class="card"><div class="logo"></div><div class="brand">Les Terrasses de Lumbarda</div><div class="apt">Appartement '+a+'</div>'+
+  '<img class="qr" src="qr/appartement-'+a+'.svg" alt="QR code">'+
+  '<div class="title">Scannez-moi · Scan me</div>'+
+  '<div class="sub">Guide du séjour : wifi, TV, climatisation, piscine, départ, numéros utiles.<br>Guest guide in English, Italiano, Deutsch, Hrvatski.</div>'+
+  '<div class="wifi"><b>Wifi</b> <code>'+(w.name||'')+'</code><br><b>Mot de passe · Password</b> <code>'+(w.password||'…')+'</code></div>'+
+  '<div class="url">lesterrasses-lumbarda.com/guide</div></div>';
+}
+document.getElementById('cards').innerHTML=out;
+</script>
+</body>
+</html>
