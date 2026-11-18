@@ -17,15 +17,18 @@
      {lang}     -> langue du visiteur (fr, en, it, de, hr)
      {unit}     -> identifiant de l'appartement (champ "id" ci-dessous)
 
-   Tant que "url" est vide, le bouton Réserver affiche un message
-   et redirige vers le formulaire de contact (mode "demande").
+   En mode "request" (actuel), le bouton Réserver ouvre le calendrier puis un
+   formulaire de demande : Thierry reçoit un email, le client un accusé de réception.
+   Pour passer à Smoobu : mettre mode: "modal" et remplir les URL ci-dessous.
    ============================================================= */
 
 window.LT_CONFIG = {
 
-  /* "modal"    : le moteur s'ouvre dans une fenêtre sur le site (recommandé)
-     "redirect" : le moteur s'ouvre dans un nouvel onglet                     */
-  mode: "modal",
+  /* "request"  : demande de réservation traitée à la main (email à Thierry + accusé au client),
+                  sans paiement en ligne. Mode actuel, en attendant Smoobu.
+     "modal"    : le moteur Smoobu s'ouvre dans une fenêtre sur le site (dès que "url" est rempli)
+     "redirect" : le moteur s'ouvre dans un nouvel onglet                                        */
+  mode: "request",
 
   currency: "EUR",
 
