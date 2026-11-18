@@ -6,7 +6,9 @@
 <title>Les Terrasses de Lumbarda | Appartements de charme - Korčula, Croatie</title>
 <meta name="description" content="Appartements de charme avec terrasse privative, vue mer et piscine privée à Lumbarda, île de Korčula, Croatie. Réservation directe en ligne, confirmation immédiate.">
 <link rel="canonical" href="https://lesterrasses-lumbarda.com/">
-<link rel="icon" type="image/svg+xml" href="images/logo.svg">
+<link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+<link rel="icon" type="image/png" sizes="512x512" href="images/favicon-512.png">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 <meta name="theme-color" content="#111111">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Les Terrasses de Lumbarda">
@@ -18,7 +20,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"LodgingBusiness","name":"Les Terrasses de Lumbarda","url":"https://lesterrasses-lumbarda.com/","email":"lesterrasses.lumbarda@gmail.com","image":"https://lesterrasses-lumbarda.com/images/photos/terrasse-1.jpg","telephone":"+33684756851","address":{"@type":"PostalAddress","streetAddress":"Lumbarda 452a","addressLocality":"Lumbarda","postalCode":"20263","addressCountry":"HR"},"geo":{"@type":"GeoCoordinates","latitude":42.919697,"longitude":17.172616},"checkinTime":"16:00","checkoutTime":"11:00","priceRange":"€90 - €150","amenityFeature":[{"@type":"LocationFeatureSpecification","name":"Terrasse privative"},{"@type":"LocationFeatureSpecification","name":"Vue mer"},{"@type":"LocationFeatureSpecification","name":"Piscine"},{"@type":"LocationFeatureSpecification","name":"Parking privé"},{"@type":"LocationFeatureSpecification","name":"Wifi"}]}
+{"@context":"https://schema.org","@type":"LodgingBusiness","name":"Les Terrasses de Lumbarda","url":"https://lesterrasses-lumbarda.com/","email":"lesterrasses.lumbarda@gmail.com","logo":"https://lesterrasses-lumbarda.com/images/logo-lt.png","image":"https://lesterrasses-lumbarda.com/images/photos/terrasse-1.jpg","telephone":"+33684756851","address":{"@type":"PostalAddress","streetAddress":"Lumbarda 452a","addressLocality":"Lumbarda","postalCode":"20263","addressCountry":"HR"},"geo":{"@type":"GeoCoordinates","latitude":42.919697,"longitude":17.172616},"checkinTime":"16:00","checkoutTime":"11:00","priceRange":"€90 - €150","amenityFeature":[{"@type":"LocationFeatureSpecification","name":"Terrasse privative"},{"@type":"LocationFeatureSpecification","name":"Vue mer"},{"@type":"LocationFeatureSpecification","name":"Piscine"},{"@type":"LocationFeatureSpecification","name":"Parking privé"},{"@type":"LocationFeatureSpecification","name":"Wifi"}]}
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -131,10 +133,9 @@ h1,h2,h3,h4{font-family:var(--font-display);font-weight:400;line-height:1.3;font
   padding:14px 0;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)
 }
 .navbar .container{display:flex;align-items:center;justify-content:space-between}
-.nav-logo{display:flex;align-items:center;justify-content:center;width:70px;height:70px;color:var(--gold);transition:var(--transition)}
-.nav-logo svg{width:100%;height:100%;stroke:currentColor;fill:none;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}
-.navbar.scrolled .nav-logo{width:60px;height:60px}
-.nav-logo:hover{color:var(--gold-light);transform:scale(1.04)}
+.nav-logo{display:block;width:62px;height:64px;background:var(--gold);-webkit-mask:url('images/logo-lt.svg') center/contain no-repeat;mask:url('images/logo-lt.svg') center/contain no-repeat;transition:background .3s ease,width .4s ease,height .4s ease,transform .3s ease}
+.navbar.scrolled .nav-logo{width:52px;height:54px}
+.nav-logo:hover{background:var(--gold-light);transform:scale(1.04)}
 .nav-tagline{display:block;font-family:var(--font-body);font-size:.55rem;letter-spacing:3.5px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-top:2px;font-weight:400;font-style:normal}
 .navbar.scrolled .nav-tagline{color:var(--gray-light)}
 .nav-links{display:flex;align-items:center;gap:36px}
@@ -281,8 +282,7 @@ h1,h2,h3,h4{font-family:var(--font-display);font-weight:400;line-height:1.3;font
 .brandmark{display:flex;flex-direction:column;align-items:center;gap:14px;margin:8px 0 4px}
 .brandmark-row{display:flex;align-items:center;justify-content:center;gap:28px}
 .brandmark-text{font-family:var(--font-display);font-size:1.2rem;font-weight:400;letter-spacing:1.5px;color:var(--dark);font-style:normal;white-space:nowrap;line-height:1}
-.brandmark-icon{width:64px;height:64px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.brandmark-icon svg{width:100%;height:100%;stroke:var(--gold);fill:none;stroke-width:1.1;stroke-linecap:round;stroke-linejoin:round}
+.brandmark-icon{width:64px;height:66px;flex-shrink:0;background:var(--gold);-webkit-mask:url('images/logo-lt.svg') center/contain no-repeat;mask:url('images/logo-lt.svg') center/contain no-repeat}
 .brandmark-location{font-family:var(--font-body);font-size:.7rem;letter-spacing:5px;text-transform:uppercase;color:var(--gold);font-weight:500}
 @media(max-width:600px){
   .brandmark-row{gap:14px}
@@ -854,22 +854,7 @@ h1,h2,h3,h4{font-family:var(--font-display);font-weight:400;line-height:1.3;font
      ======================================== -->
 <nav class="navbar" id="navbar">
 <div class="container">
-  <a href="#" class="nav-logo" aria-label="Les Terrasses de Lumbarda">
-    <svg viewBox="0 0 80 80" aria-hidden="true">
-      <path d="M14 64 L14 30 Q14 14 40 14 Q66 14 66 30 L66 64"/>
-      <line x1="8" y1="68" x2="72" y2="68"/>
-      <line x1="40" y1="22" x2="40" y2="26"/>
-      <path d="M28 32 Q40 26 52 32 L28 32"/>
-      <line x1="34" y1="29" x2="34" y2="32"/>
-      <line x1="46" y1="29" x2="46" y2="32"/>
-      <line x1="40" y1="32" x2="40" y2="56"/>
-      <line x1="34" y1="56" x2="46" y2="56"/>
-      <line x1="35" y1="56" x2="35" y2="64"/>
-      <line x1="45" y1="56" x2="45" y2="64"/>
-      <path d="M22 64 L22 50 L26 50 L26 64 M22 56 L26 56"/>
-      <path d="M54 64 L54 50 L58 50 L58 64 M54 56 L58 56"/>
-    </svg>
-  </a>
+  <a href="#" class="nav-logo" aria-label="Les Terrasses de Lumbarda"></a>
   <div class="nav-links">
     <a href="#apartments" data-i18n="nav_apartments">Appartements</a>
     <a href="#equipment" data-i18n="nav_equipment">Équipements</a>
@@ -1011,22 +996,7 @@ h1,h2,h3,h4{font-family:var(--font-display);font-weight:400;line-height:1.3;font
     <div class="brandmark">
       <div class="brandmark-row">
         <span class="brandmark-text">Les Terrasses</span>
-        <span class="brandmark-icon" aria-hidden="true">
-          <svg viewBox="0 0 80 80">
-            <path d="M14 64 L14 30 Q14 14 40 14 Q66 14 66 30 L66 64"/>
-            <line x1="8" y1="68" x2="72" y2="68"/>
-            <line x1="40" y1="22" x2="40" y2="26"/>
-            <path d="M28 32 Q40 26 52 32 L28 32"/>
-            <line x1="34" y1="29" x2="34" y2="32"/>
-            <line x1="46" y1="29" x2="46" y2="32"/>
-            <line x1="40" y1="32" x2="40" y2="56"/>
-            <line x1="34" y1="56" x2="46" y2="56"/>
-            <line x1="35" y1="56" x2="35" y2="64"/>
-            <line x1="45" y1="56" x2="45" y2="64"/>
-            <path d="M22 64 L22 50 L26 50 L26 64 M22 56 L26 56"/>
-            <path d="M54 64 L54 50 L58 50 L58 64 M54 56 L58 56"/>
-          </svg>
-        </span>
+        <span class="brandmark-icon" aria-hidden="true"></span>
         <span class="brandmark-text">de Lumbarda</span>
       </div>
       <div class="brandmark-location" data-i18n="brand_location">Lumbarda · Croatie</div>
