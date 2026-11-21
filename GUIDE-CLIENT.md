@@ -112,6 +112,21 @@ Tout se passe dans **un seul fichier** : `index.html`, modifiable sur GitHub ave
 
 ---
 
+## 7 bis. Le guide d’accueil (QR codes dans les appartements)
+
+Le guide des voyageurs est en ligne sur **https://lesterrasses-lumbarda.com/guide/** (5 langues). Chaque appartement a son QR code (`guide/qr/appartement-1.png` … `appartement-4.png`) qui ouvre le guide avec la bonne photo et le bon wifi : `/guide/?apt=1` … `?apt=4`. Les cartes A5 à imprimer sont sur `guide/cartes.html` (Ctrl+P).
+
+Structure (même modèle que les livrets d’accueil professionnels type Nowistay) : photo de couverture, carte hôte avec WhatsApp / Appeler / Email, puis 13 rubriques : Votre hôte, Accès au logement, Arrivée et départ, Wi-Fi, Règles de la maison, Couchages & salle de bain, Équipements, Piscine, Poubelles & tri, À faire et à découvrir, Restaurants & commerces, Services & locations, Urgences & contacts. Bouton **PDF** en haut = impression / enregistrement du guide complet.
+
+| Je veux… | Où |
+|---|---|
+| Compléter les infos pratiques (boîte à clés, parking, eau chaude, cuisine) | `guide/guide-config.js`, bloc `GUIDE_CONFIG` : remplissez les valeurs vides `""`. Tant qu’une valeur est vide, le guide affiche **[…]** en rouge |
+| Changer un nom de wifi, un téléphone, une adresse, une bonne adresse | `guide/guide-config.js`, bloc `GUIDE_CONFIG` (une seule fois, valable pour les 5 langues) |
+| Changer la photo de couverture d’un appartement | `guide/guide-config.js`, bloc `COVER` |
+| Modifier le texte d’une rubrique | `guide/guide-config.js`, bloc `GUIDE_TEXT` : la même rubrique existe dans `fr`, `en`, `it`, `de`, `hr` |
+
+---
+
 ## 8. Sécurité : ce qui est en place
 
 - HTTPS forcé (certificat Let's Encrypt OVH, renouvelé automatiquement) + HSTS.
